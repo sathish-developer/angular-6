@@ -1,0 +1,376 @@
+<div class="p-3 premium-bg">
+  <!-- <div class="row premium-car-details mx-0 mb-2">
+    <div class="col-10">
+      <div class="row">
+        <div class="col-4">Private Car</div>
+        <div class="col-4">Ford Ecosport</div>
+        <div class="col-4">1.5D Titanium</div>
+      </div>
+      <div class="row">
+        <div class="col-4 ">QBC0000001870</div>
+        <div class="col-4">1498 CC</div>
+        <div class="col-4">DIESEL & 5 SEATER</div>
+      </div>
+      <div class="row">
+        <div class="col-4 ">Year: 2018</div>
+        <div class="col-4">NCB: 20%</div>
+        <div class="col-4">1.5D Titanium</div>
+      </div>
+    </div>
+    <div class="col-2">
+      <button mat-mini-fab color="warn" matTooltip="Modify Car Details">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col-sm-12 col-md-3 col-lg-3 mb-2 ">
+      <div class="row">
+        <div class="col-12 mb-2 wow animated swing">
+          <mat-card class="p-0">
+            <mat-toolbar mat-dialog-title color="primary" class="font_13b">Insured Declared Value (IDV)</mat-toolbar>
+            <mat-card-content>
+              <div class="row mt-3 p-2">
+                <div class="col-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="IDV" pattern="[0-9]*" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <button mat-raised-button color="primary" class="p-0">
+                    <i class="far fa-paper-plane"></i> Submit</button>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-12 wow animated bounceIn">
+          <mat-accordion class="mb-3">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title class="font_13b">
+                  Additional Covers
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <section class="example-section" *ngFor="let x of additionalList;let i=index"(click)="getCoverSelection(x)" >
+                <mat-checkbox  [(ngModel)]="x.selected"  class="example-margin font_12b">{{x.coverName}}</mat-checkbox>
+              </section>
+              <!-- <section class="example-section">
+                <mat-checkbox class="example-margin font_12b">BI FUEL KIT(CNG)</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin font_12b">UNNAMED PASSENGER</mat-checkbox>
+              </section> -->
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="font_13b">
+                  AddOn Covers
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <section class="example-section" *ngFor="let x of addonList;let i=index">
+                <mat-checkbox  [(ngModel)]="x.selected"  class="example-margin font_12b">{{x.coverName}}</mat-checkbox>
+              </section>
+              <!-- <section class="example-section">
+                <mat-checkbox class="example-margin font_12b">ZERO DEPRECIATION</mat-checkbox>
+              </section>
+              <section class="example-section">
+                <mat-checkbox class="example-margin font_12b">ROAD SIDE ASSITANCE</mat-checkbox>
+              </section> -->
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title class="font_13b">
+                  Discounts
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <section class="example-section" *ngFor="let x of discountList;let i=index">
+                <mat-checkbox  [(ngModel)]="x.selected"  class="example-margin font_12b">{{x.coverName}}</mat-checkbox>
+              </section>
+
+              <!-- <section class="example-section">
+                <mat-checkbox class="example-margin font_12b">ANTI THEFT DISCOUNT</mat-checkbox>
+              </section> -->
+            </mat-expansion-panel>
+          </mat-accordion>
+          <div class="calc-btn-bg">
+            <button mat-raised-button color="accent" type="button" (click)="RecalculatePremium()">Re Calculate</button>
+            <!-- <button type="button" style="text-align: center" (click)="RecalculatePremium()">Recalculate</button> -->
+          </div>
+        </div>
+        <div class="col-12 wow animated bounceInDown">
+          <mat-card class="p-0 mt-2 car-card-top-border">
+            <mat-card-content>
+              <div class=" d-flex justify-content-between p-2">
+                <div class="d-flex align-items-center">
+                  <img src="../../assets/images/car-black.png">
+                </div>
+                <div class="d-flex align-items-center">
+                  <button mat-raised-button color="warn" class=" ">Modify Car Details</button>
+                </div>
+              </div>
+              <table class="table font_11b compare-table-td-xs">
+                <tbody>
+                  <tr>
+                    <td>Manufacturer</td>
+                    <td>-</td>
+                    <td>
+                      <span>{{userSelectedCarDetails.VehicleDetails.makeName}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Model &amp; Variant</td>
+                    <td>-</td>
+                    <td>
+                      <span>{{userSelectedCarDetails.VehicleDetails.subModelName}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Year</td>
+                    <td>-</td>
+                    <td>
+                      <span>{{userSelectedCarDetails.VehicleDetails.yearOfMfg}}</span>
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <td>Quote No.</td>
+                    <td>-</td>
+                    <td>
+                      <span>QBC0000001870</span>
+                    </td>
+                  </tr> -->
+                  <tr>
+                    <td>Fuel Type</td>
+                    <td>-</td>
+                    <td>
+                      <span>{{userSelectedCarDetails.VehicleDetails.fuelType}}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>No Claim Bonus</td>
+                    <td>-</td>
+                    <td>
+                      <span>20%</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="text-center">
+                      <button mat-raised-button color="warn">Modify Car Details</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-9 col-lg-9">
+      <div class="row m-0 mb-2 premium-sort-header-bg">
+        <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-center">
+          Insurer
+          <i class="fas fa-sort"></i>
+        </div>
+        <div class="col-5 col-sm-4 col-md-4 col-lg-3 text-center">
+          IDV
+          <i class="fas fa-sort"></i>
+        </div>
+        <div class="col-md-3 col-lg-4 d-none d-md-block text-center">
+          Addon
+        </div>
+        <div class="col-3 col-sm-4 col-md-2 col-lg-2 text-center">
+          Premium
+          <i class="fas fa-sort"></i>
+        </div>
+      </div>
+    
+       <mat-card class="p-0 mb-3" *ngFor="let insurer of finalResult; let i = index">
+        <mat-card-content>
+          <div class="row m-0">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 d-flex align-items-center premium-card-split-border">
+              <div class="card_img_btn_algn">
+                <img class="max-width" src="../../../../../../assets/{{insurer.imagePath}}">
+                <!-- <p class="mt-2 font_9b">{{insurer.quoteNo}}</p> -->
+              </div>
+            </div>
+            <div class="col-5 col-sm-4 col-md-4 col-lg-3 d-flex align-items-center" style="border-right: 1px solid #ddd;height: 104px;">
+              <mat-label class="font_17b">IDV
+                <i class="fas fa-rupee-sign"></i> {{insurer.actualIdv}}</mat-label>
+              <button mat-icon-button color="accent" class="ml-2" matTooltip="Modify Your IDV" (click)="editIDVDlg()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+              <div class="col-md-3 col-lg-4 d-none d-md-block" style="border-right: 1px solid #ddd;height: 104px;">
+              <!-- {{insurer.coverDetails.OD.rate |json}} -->
+
+              <div class="row mt-1" *ngFor="let key of insurer.coverDetails | keys">
+                <div class="col-md-12">
+
+                  <h5 class="font_10b m-0">
+                    <i class="fas fa-angle-right"></i> {{insurer.coverDetails[key].code}} {{insurer.coverDetails[key].rate==-99999?'NA':insurer.coverDetails[key].rate}}</h5>
+                </div>
+                </div>
+            </div>  
+            <div class="col-3 col-sm-4 col-md-2 col-lg-2 text-center d-flex align-items-center p-2">
+              <button mat-raised-button color="primary" routerLink="/customerinfo" class="example-full-width font_17b p-0 premium-btn-xs premium-btn-sm premium-btn-md" (click)="gotoCarCustomerDet()">
+                <i class="fas fa-rupee-sign"></i> {{insurer.grossPremium}}</button>
+            </div>
+          </div>
+          <div class="row m-0 premium-card-footer-bg">
+            <div class="col-6 d-flex align-items-center">
+              <mat-checkbox class="example-margin font_12b" [(ngModel)]="checkvalue[i]" (change)="addToCompare(insurer, checkvalue[i], i)?checkvalue[i]=true:checkvalue[i]=false">Add to Compare</mat-checkbox>
+            </div>
+            <div class="col-6 mt-1">
+              <a class="float-right font_12b color-white cursor-pointer" (click)="premiumBreakUp()">Premium BreakUp</a>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card> 
+    </div>
+  </div>
+  <div class="d-md-none d-sm-block">
+    <button mat-fab color="primary" class="car-edit-fab-left" (click)="carsidenav.toggle()">
+      <i class="fas fa-car fa-2x"></i>
+    </button>
+    <button mat-fab color="primary" class="filter-fab-right" (click)="filtersidenav.toggle()">
+      <i class="fas fa-filter fa-2x"></i>
+    </button>
+  </div>
+
+  <mat-drawer-container class="car-sidenav-container">
+    <mat-drawer mode="side" #carsidenav class="fancy-drawer">
+      <mat-toolbar mat-dialog-title color="primary">Car Details</mat-toolbar>
+      <div class="text-center">
+        <img src="../../assets/images/car-black.png">
+      </div>
+      <table class="table compare-table-td-xs">
+        <tbody>
+          <tr>
+            <td>Manufacturer</td>
+            <td>-</td>
+            <td>
+              <span>{{userSelectedCarDetails.VehicleDetails.makeName}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Model &amp; Variant</td>
+            <td>-</td>
+            <td>
+              <span>{{userSelectedCarDetails.VehicleDetails.subModelName}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Year</td>
+            <td>-</td>
+            <td>
+              <span>{{userSelectedCarDetails.VehicleDetails.yearOfMfg}}</span>
+            </td>
+          </tr>
+          <!-- <tr>
+            <td>Quote No.</td>
+            <td>-</td>
+            <td>
+              <span>QBC0000001870</span>
+            </td>
+          </tr> -->
+          <tr>
+            <td>Fuel Type</td>
+            <td>-</td>
+            <td>
+              <span>{{userSelectedCarDetails.VehicleDetails.yearOfMfg}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>No Claim Bonus</td>
+            <td>-</td>
+            <td>
+              <span>20%</span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="text-center">
+              <button mat-raised-button color="warn">Modify Car Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-drawer>
+  </mat-drawer-container>
+  <mat-drawer-container class="filter-sidenav-container">
+    <mat-drawer mode="side" #filtersidenav class="fancy-drawer">
+      <mat-toolbar mat-dialog-title color="primary">Filter</mat-toolbar>
+      <mat-accordion class="mb-3">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="font_13b">
+              Additional Covers
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <section class="example-section" *ngFor="let x of additionalList;let i=index">
+            <mat-checkbox class="example-margin font_12b">{{x.coverName}}</mat-checkbox>
+          </section>
+          <!-- <section class="example-section">
+            <mat-checkbox class="example-margin font_12b">BI FUEL KIT(CNG)</mat-checkbox>
+          </section>
+          <section class="example-section">
+            <mat-checkbox class="example-margin font_12b">UNNAMED PASSENGER</mat-checkbox>
+          </section> -->
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="font_13b">
+              AddOn Covers
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <section class="example-section" *ngFor="let x of addonList;let i=index">
+            <mat-checkbox class="example-margin font_12b">{{x.coverName}}</mat-checkbox>
+          </section>
+          <!-- <section class="example-section">
+            <mat-checkbox class="example-margin font_12b">ROAD SIDE ASSITANCE</mat-checkbox>
+          </section> -->
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="font_13b">
+              Discounts
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <section class="example-section" *ngFor="let x of discountList;let i=index">
+            <mat-checkbox class="example-margin font_12b">{{x.coverName}}</mat-checkbox>
+          </section>
+          <!-- <section class="example-section">
+            <mat-checkbox class="example-margin font_12b">ANTI THEFT DISCOUNT</mat-checkbox>
+          </section> -->
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-drawer>
+  </mat-drawer-container>
+</div>
+<div *ngIf="comparePremiumList.length > 0" style="overflow: hidden;" class="quote-compare-bottom-box" aria-hidden="false">
+  <div layout="row" class="quote-compare-bottom-box-wrp">
+    <div class="quote-compare-bottom-box-wrp-box ng-scope" *ngFor="let plan of comparePremiumList">
+      <i class="fa fa-times quote-compare-bottom-box-close" aria-hidden="true" (click)="removePlanFromCompareList(plan)" role="button"
+        tabindex="0"></i>
+      <img class="max-width width_86" src="{{plan.ins_img}}">
+      <h5 class="font_11b mt-1">{{plan.premium_amt}}</h5>
+      <h6 class="font_9b">{{plan.ins_plan}}</h6>
+    </div>
+    <div class="quote-compare-bottom-box-wrp-disabled ng-scope" *ngFor="let list of tempComparePremiumList">
+      <div class="selectcompareplan">Add to compare</div>
+    </div>
+    <div class="quote-compare-bottom-box-btn">
+      <button mat-raised-button color="warn" class="example-full-width mt-2 mb-2 mt-xs-0 p-0 premium-compare-btn-xs" (click)="openCompare()"
+        [disabled]="comparePremiumList.length == 1">
+        <i class="fas fa-external-link-alt"></i> Compare Now
+      </button>
+      <!-- <span class="compare-close-btn" (click)="removeAllCompareList()" role="button">
+                <i class="fa fa-times" role="button" tabindex="0"></i> Remove All
+            </span> -->
+      <button mat-raised-button class="example-full-width p-0 premium-compare-btn-xs" (click)="removeAllCompareList()">
+        <i class="fas fa-trash-alt"></i> Remove All
+      </button>
+    </div>
+  </div>
+</div>

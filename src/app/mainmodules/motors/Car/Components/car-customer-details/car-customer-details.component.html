@@ -1,0 +1,564 @@
+<div class="container-fluid d-block mt-3 car_colors_section">
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <app-car-insurer-details></app-car-insurer-details>
+      </div>
+      <div class="col-12 col-md-9">
+        <app-car-details></app-car-details>
+      </div>
+  
+    </div>
+    <div class="row customer_info_block wow animated fadeInUp slower2 customer_info_animation_1">
+      <div class="col-12 col-md-12 mt-3">
+  
+  
+        <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button> -->
+  
+        <form [formGroup]="formGroup" class="customer_info">
+          <mat-horizontal-stepper class="justify-content-center" #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray"
+            [linear]="true">
+            <ng-template matStepperIcon="edit">
+              <mat-icon>done</mat-icon>
+            </ng-template>
+  
+            <!-- <ng-template matStepperIcon="edit">
+        <mat-icon>done</mat-icon>
+      </ng-template> -->
+  
+  
+            <!-- Proposer Details -->
+            <mat-step label="Proposer" formGroupName="0" [stepControl]="formArray?.get([0])">
+  
+              <h3 class="customer_detailes_subheader">Proposer Information</h3>
+  
+             <!--  <ng-template matStepLabel>Proposer</ng-template> -->
+              <!-- {{formGroup.get('formArray.0').get('aadharNumber').errors?.pattern | json}}
+              {{formGroup.get('formArray.0').get('aadharNumber').valid}} -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-digital-tachograph matPrerfix"></i>
+                </span>
+                <mat-label>Aadhaar Number</mat-label>
+                <input matInput formControlName="aadharNumber" myNumberOnly   maxlength="12">
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>First name</mat-label>
+                <input matInput formControlName="firstName"  StringOnly>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Last name</mat-label>
+                <input matInput formControlName="lastName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4" (click)="dateOfBirth.open()">
+                <!-- <span matSuffix>
+                  <i class="far fa-calendar-alt"></i>
+                </span> -->
+                <mat-label>Date Of Birth</mat-label>
+                <input matInput [matDatepicker]="dateOfBirth" formControlName="dateOfBirth" >
+                <mat-datepicker-toggle class="date_icon" matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+                <mat-datepicker #dateOfBirth></mat-datepicker>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marker"></i>
+                </span>
+                <mat-label>Address 1</mat-label>
+                <input matInput formControlName="address1" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marker"></i>
+                </span>
+                <mat-label>Address 2</mat-label>
+                <input matInput formControlName="address2" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marker"></i>
+                </span>
+                <mat-label>Address 3</mat-label>
+                <input matInput formControlName="address3" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+             <!--  <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marked"></i>
+                </span>
+                <mat-label>City Name</mat-label>
+                <input matInput formControlName="cityName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field> -->
+              <mat-form-field appearance="outline" class="example-container">
+                <!-- <mat-label>Select</mat-label> -->
+                <input type="text" placeholder="Select" aria-label="Number" formControlName="cityName" matInput [matAutocomplete]="auto2">
+                <mat-autocomplete #auto2="matAutocomplete">
+                  <mat-option *ngFor="let option of cityDropDownList | async" [value]="option.cityName" (onSelectionChange)="getStatesBycityName(option)">
+                    {{option.cityName}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix class="select_arrow">arrow_drop_down</mat-icon>
+                <mat-error>This field is required</mat-error>
+              </mat-form-field>
+              <!-- <mat-form-field appearance="outline" class="example-container">
+                <input type="text" placeholder="Select" aria-label="Number" formControlName="stateName" matInput [matAutocomplete]="auto3">
+                <mat-autocomplete #auto3="matAutocomplete">
+                  <mat-option *ngFor="let option of stateDropDownList" [value]="option.stateName">
+                    {{option.stateName}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon matSuffix class="select_arrow">arrow_drop_down</mat-icon>
+                <mat-error>This field is required</mat-error>
+              </mat-form-field> -->
+
+                <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marked"></i>
+                </span>
+                <mat-label>state Name</mat-label>
+                <input matInput formControlName="stateName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-road"></i>
+                </span>
+                <mat-label>Area Name</mat-label>
+                <input matInput formControlName="areaName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-pin"></i>
+                </span>
+                <mat-label>Pincode</mat-label>
+                <input matInput formControlName="pinCode" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-mobile-alt"></i>
+                </span>
+                <mat-label>Mobile No</mat-label>
+                <input matInput formControlName="mobileNo" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-mobile-alt"></i>
+                </span>
+                <mat-label>Alternate Mobile No</mat-label>
+                <input matInput formControlName="alternateMobile" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-id-card"></i>
+                </span>
+                <mat-label>PAN No</mat-label>
+                <input matInput formControlName="panNumber" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-phone"></i>
+                </span>
+                <mat-label>Telephone No</mat-label>
+                <input matInput formControlName="telePhone" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <mat-label>Email ID</mat-label>
+                <input matInput formControlName="email" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <mat-label>Alternate Email ID</mat-label>
+                <input matInput formControlName="alternateEmail" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>EIA</mat-label>
+                <input matInput formControlName="eiaNumber" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>GSTIN</mat-label>
+                <input matInput formControlName="GSTIN" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <div>
+                <button mat-stroked-button type="button" class="float-right button_1" (click)="validateProposer(linearHorizontalStepper)">Next</button>
+              </div>
+            </mat-step>
+  
+            <!-- Vehicle Details -->
+            <mat-step label="Vehicle" formGroupName="1" [stepControl]="formArray?.get([1])">
+  
+              <h3 class="customer_detailes_subheader">Vehicle Information</h3>
+              <!-- <ng-template matStepLabel>Vehicle</ng-template> -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <mat-label>Registration Number</mat-label>
+                <input matInput formControlName="registrationNo" >
+                <mat-icon matSuffix>business</mat-icon>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Engine number</mat-label>
+                <input matInput formControlName="engineNo" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Chassis Number</mat-label>
+                <input matInput formControlName="chassisNo" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Previous Insurer Name</mat-label>
+                <input matInput formControlName="prevPolicyInsurerName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Previous Policy Numbaer</mat-label>
+                <input matInput formControlName="prevPolicyNo" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+  
+              <h3 class="customer_detailes_subheader mt-3 mb-2">Registration Information</h3>
+  
+              <p class="customer_detail_checkbox">
+                <mat-checkbox>Is your registartion address same as communication address?</mat-checkbox>
+              </p>
+              <!-- <ng-template matStepLabel>Vehicle</ng-template> -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marker-alt"></i>
+                </span>
+                <mat-label>Address 1</mat-label>
+                <input matInput formControlName="regiAddress1" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marker-alt"></i>
+                </span>
+                <mat-label>Address 2</mat-label>
+                <input matInput formControlName="regiAddress2" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marker-alt"></i>
+                </span>
+                <mat-label>Address 3</mat-label>
+                <input matInput formControlName="regiAddress3" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-marked-alt"></i>
+                </span>
+                <mat-label>City Name</mat-label>
+                <input matInput formControlName="regiCityName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-signs"></i>
+                </span>
+                <mat-label>State</mat-label>
+                <input matInput formControlName="regStateName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-signs"></i>
+                </span>
+                <mat-label>Area Name</mat-label>
+                <input matInput formControlName="regiAreaName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="fas fa-map-signs"></i>
+                </span>
+                <mat-label>Pincode</mat-label>
+                <input matInput formControlName="regiPinCode" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <div>
+                <button mat-stroked-button matStepperPrevious class="float-left button_2">Back</button>
+                <button mat-stroked-button matStepperNext class="float-right button_1"  >Next</button>
+              </div>
+            </mat-step>
+  
+  
+            <!-- Nominee Details -->
+            <mat-step label="Nominee" formGroupName="2" [stepControl]="formArray?.get([2])">
+  
+              <h3 class="customer_detailes_subheader">Nominee Information</h3>
+              <!-- <ng-template matStepLabel>Nominee</ng-template> -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Nominee Name</mat-label>
+                <input matInput formControlName="nomineeName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4" (click)="Nomineedob.open()">
+                <mat-label>Nominee DOB</mat-label>
+                <input matInput [matDatepicker]="Nomineedob" formControlName="nomineeDob" >
+                <mat-datepicker-toggle class="date_icon" matSuffix [for]="Nomineedob"></mat-datepicker-toggle>
+                <mat-datepicker #Nomineedob></mat-datepicker>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Nominee Relationship</mat-label>
+                <mat-select formControlName="nomineeRelationship">
+                  <mat-option *ngFor="let option of nomineeRelationshipList"  [value]="option.name">
+                    {{option.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+  
+              <h3 class="customer_detailes_subheader mt-3">Guardian Information</h3>
+              <!-- <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Guardian Name</mat-label>
+                <input matInput formControlName="guardianName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field> -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Guardian Name</mat-label>
+                <mat-select formControlName="guardianName">
+                  <mat-option>
+                  </mat-option>
+                </mat-select>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="col-12 col-sm-6 col-md-4" (click)="Guardiandob.open()">
+                <mat-label>Guardian DOB</mat-label>
+                <input matInput [matDatepicker]="Guardiandob" formControlName="guardianDob" >
+                <mat-datepicker-toggle class="date_icon" matSuffix [for]="Guardiandob"></mat-datepicker-toggle>
+                <mat-datepicker #Guardiandob></mat-datepicker>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+               
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Guardian Relationship</mat-label>
+                <mat-select formControlName="guardianRelationship">
+                  <mat-option *ngFor="let option of nomineeRelationshipList"  [value]="option.name">
+                    {{option.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+
+              <h3 class="customer_detailes_subheader mt-3">Financier Information</h3>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label> Financier Type</mat-label>
+                <mat-select formControlName="financierType">
+                  <mat-option>
+                  </mat-option>
+                </mat-select>
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Financier City</mat-label>
+                <input matInput formControlName="financierCity" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <!-- <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Financier Name</mat-label>
+                <input matInput formControlName="financierName" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field> -->
+
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                  <span matSuffix>
+                    <i class="far fa-user"></i>
+                  </span>
+                  <mat-label>Financier Name</mat-label>
+                  <mat-select formControlName="financierName">
+                    <mat-option *ngFor="let option of financierList"  [value]="option.name">
+                      {{option.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>This field is </mat-error>
+                </mat-form-field>
+              <div>
+                <button mat-stroked-button matStepperPrevious class="float-left button_2">Back</button>
+                <button type="button" mat-stroked-button class="float-right button_1" (click)="updateUptoNomineeDetails(linearHorizontalStepper)" >Next</button>
+              </div>
+            </mat-step>
+  
+  
+            <!-- Inspection Details -->
+            <mat-step label="Inspection" formGroupName="3" [stepControl]="formArray?.get([3])">
+              <h3 class="customer_detailes_subheader">Inspection Information</h3>
+              <!-- <ng-template matStepLabel>Inspection</ng-template> -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <span matSuffix>
+                  <i class="far fa-user"></i>
+                </span>
+                <mat-label>Inspection </mat-label>
+                <input matInput formControlName="emailFormCtrl" disabled >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>            
+             <button type="button" mat-stroked-button class="button_1 button_c">Send OTP</button>
+              <div>
+                <button mat-stroked-button matStepperPrevious class="float-left button_2">Back</button>
+                <button type="button" matStepperNext mat-stroked-button class="float-right button_1">Next</button>
+              </div>
+            </mat-step>
+  
+  
+            <!-- Document Details -->
+            <mat-step label="Document" formGroupName="4" [stepControl]="formArray?.get([4])">
+              <!-- <ng-template matStepLabel>Inspection</ng-template> -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <mat-label>Registration Number</mat-label>
+                <input matInput formControlName="emailFormCtrl" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <mat-label>Engine number</mat-label>
+                <input matInput formControlName="emailFormCtrl" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <mat-label>Chassis Number</mat-label>
+                <input matInput formControlName="emailFormCtrl" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <mat-label>Previous Insurer</mat-label>
+                <input matInput formControlName="emailFormCtrl" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                <mat-label>Previous Policy Numbaer</mat-label>
+                <input matInput formControlName="emailFormCtrl" >
+                <mat-error>This field is </mat-error>
+              </mat-form-field>
+              <div>
+                <button mat-stroked-button matStepperPrevious class="float-left button_2">Back</button>
+                <button tyupe="button" matStepperNext mat-stroked-button class="float-right button_1">Next</button>
+              </div>
+            </mat-step>
+  
+            <!-- Online Details -->
+            <mat-step label="Payment" formGroupName="5" [stepControl]="formArray?.get([5])">
+                <h3 class="customer_detailes_subheader">Online Payment</h3>
+              <!-- <ng-template matStepLabel>Inspection</ng-template> -->
+              <mat-form-field class="col-12 col-sm-6 col-md-4">
+                  <mat-label>Proposal Number</mat-label>
+                  <input matInput formControlName="emailFormCtrl" >
+                  <mat-icon matSuffix>business</mat-icon>
+                  <mat-error>This field is </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6 col-md-4">
+                  <span matSuffix>
+                    <i class="far fa-user"></i>
+                  </span>
+                  <mat-label>Quote number</mat-label>
+                  <input matInput formControlName="emailFormCtrl" >
+                  <mat-error>This field is </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6 col-md-4">
+                  <span matSuffix>
+                    <i class="far fa-user"></i>
+                  </span>
+                  <mat-label>Insurer Code</mat-label>
+                  <input matInput formControlName="emailFormCtrl" >
+                  <mat-error>This field is </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6 col-md-4">
+                  <span matSuffix>
+                    <i class="far fa-user"></i>
+                  </span>
+                  <mat-label>Total Amount</mat-label>
+                  <input matInput formControlName="emailFormCtrl" >
+                  <mat-error>This field is </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-sm-6 col-md-4">
+                  <span matSuffix>
+                    <i class="far fa-user"></i>
+                  </span>
+                  <mat-label>Integration Quote No</mat-label>
+                  <input matInput formControlName="emailFormCtrl" >
+                  <mat-error>This field is </mat-error>
+                </mat-form-field>
+                <p class="text-center"><button type="button" mat-stroked-button class="button_1 button_c">Online Payment</button></p>
+              <div>
+                <button mat-stroked-button matStepperPrevious class="float-left button_2">Back</button>
+                <button tyupe="button" matStepperNext mat-stroked-button (click)="gotoSummaryDetails()" class="float-right button_1">Done</button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </form>
+      </div>
+    </div>
+  </div>
+  

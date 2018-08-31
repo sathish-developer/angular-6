@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Go Policy</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Signika:300,400,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Shrikhand&amp;subset=gujarati,latin-ext" rel="stylesheet">
+</head>
+<!-- inline spinner styles to be able to display spinner right away -->
+<style type="text/css">
+  body, html {
+    height: 100%;
+  }
+  .app-loading {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .app-loading .logo {
+    width: 250px;
+    height: 250px;
+    background: url(assets/images/loader.gif) center center no-repeat; 
+  }
+</style>
+<body>
+  <app-root>
+    <!-- loading layout replaced by app after startupp -->
+    <div class="app-loading">
+      <div class="logo"></div>
+    </div>
+  </app-root>
+</body>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/wow.js"></script>
+<script src="assets/js/scrollify.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<script src="assets/js/custom.js"></script>
+</html>

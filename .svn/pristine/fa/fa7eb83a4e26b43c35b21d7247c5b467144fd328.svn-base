@@ -1,0 +1,51 @@
+import { LocalStorageService } from './commonservices/common.storage.service';
+import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './Common/Modules/material/material.module';
+import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { AppRouteModule } from './AppRouteModule/app-route.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { AppComponent } from './app.component';
+import { LoginComponent, HeaderComponent } from './sharedmodules/components/header/header.component';
+import { CommonService } from './commonservices/common.service';
+import { StorageServiceModule, WebStorageService } from 'angular-webstorage-service';
+
+
+
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    LoginComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRouteModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MaterialModule,
+    HttpClientModule,
+    StorageServiceModule
+  ],
+  exports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRouteModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MaterialModule
+  ],
+  entryComponents: [
+    LoginComponent
+  ],
+  providers: [CommonService,LocalStorageService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

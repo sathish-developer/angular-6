@@ -1,0 +1,261 @@
+<div class="container-fluid summary_page px-0">
+  <div class="summary_content_bg">
+    <div class="row m-0" fxLayout fxLayoutAlign="center" fxLayoutGap="50px" fxLayoutGap.sm="0px" fxLayoutGap.xs="0px">
+      <div class="" fxFlex="95%" fxFlex.gt-xs="70%" fxFlex.gt-sm="30%">
+        <div class="summary_left_content mt-3 wow animated fadeInLeft slower2 ">
+          <div class="summary_car_header">
+            <h4 class="text-center">SUMMARY</h4>
+            <div class="summary_arrow_right" fxShow.sm="false" fxShow.xs="false" fxShow="true"></div>
+          </div>
+          <div class="summary_card_content">
+            <h5>View Your Details</h5>
+            <div class="summary_table_col">
+              <span>Quote Number</span>
+              <span>-</span>
+              <span>QPC2132434</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Name</span>
+              <span>-</span>
+              <span>XXXXXXXX</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Communication Address</span>
+              <span>-</span>
+              <span>Royapettah</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Product Name</span>
+              <span>-</span>
+              <span>Car</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Make</span>
+              <span>-</span>
+              <span>HYUNDAI</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Model & Varient</span>
+              <span>-</span>
+              <span>CRETA & 1.6 SX</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Premium Amount</span>
+              <span>-</span>
+              <span>26847</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Status</span>
+              <span>-</span>
+              <span>Success</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Policy Start Date</span>
+              <span>-</span>
+              <span>11/01/2010</span>
+            </div>
+            <div class="summary_table_col">
+              <span>Policy End Date</span>
+              <span>-</span>
+              <span>17/5/22019</span>
+            </div>
+            <div class="summary_arrow_bottom" fxShow.sm="true" fxShow.xs="true" fxShow="false"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="" fxFlex="95%" fxFlex.gt-xs="70%" fxFlex.gt-sm="60%" class="summary_page_accordion mt-3 md-sm-0 ">
+        <div class="wow animated fadeInRight slower2 summary_animation_1 ">
+          <mat-accordion class="">
+            <mat-expansion-panel [expanded]="true" class="summary_page_accordion_content">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  BASIC DETAILS
+                </mat-panel-title>
+                <!-- <mat-panel-description>              
+              </mat-panel-description> -->
+              </mat-expansion-panel-header>
+              <p>
+                <span>Quote Number</span>:
+                <span>QPC2132434</span>
+              </p>
+              <p>
+                <span>Policy Number</span>:
+                <span>456878956</span>
+              </p>
+              <p>
+                <span>Policy Start Date </span>:
+                <span>11/01/2010</span>
+              </p>
+              <p>
+                <span>Policy End Date </span>:
+                <span>17/5/22019</span>
+              </p>
+              <p>
+                <span>Creation Date</span>:
+                <span>20/10/2010</span>
+              </p>
+              <p>
+                <span>Product Name</span>:
+                <span>Car</span>
+              </p>
+              <p>
+                <span>Status</span>:
+                <span>Enrich Completed</span>
+              </p>
+              <p>
+                <span>Sub Status</span>:
+                <span>QC Pending</span>
+              </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="summary_page_accordion_content">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  PROPOSER DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>
+                <span>Name</span>:
+                <span>XXXXXXX</span>
+              </p>
+              <p>
+                <span>D.O.B</span>:
+                <span>10/08/1990</span>
+              </p>
+              <p>
+                <span>Mobile number </span>:
+                <span>9876543212</span>
+              </p>
+              <p>
+                <span>Email ID </span>:
+                <span>xxxxxxxxxx@gmail.com</span>
+              </p>
+              <p>
+                <span>Communication Address</span>:
+                <span>Royapettah</span>
+              </p>
+              <p>
+                <span>Product Name</span>:
+                <span>Car</span>
+              </p>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="summary_page_accordion_content">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  VEHICLE DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>
+                <span>Make </span>:
+                <span>HYUNDAI</span>
+              </p>
+              <p>
+                <span>Model & Varient</span>:
+                <span>CRETA & 1.6 SX</span>
+              </p>
+              <p>
+                <span>Seating Capacity </span>:
+                <span>5</span>
+              </p>
+              <p>
+                <span>Engine CC</span>:
+                <span>1582</span>
+              </p>
+              <p>
+                <span>Fuel Type</span>:
+                <span>Diesel</span>
+              </p>
+              <p>
+                <span>Manufacturing Year</span>:
+                <span>2018</span>
+              </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="summary_page_accordion_content">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  PREMIUM DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>
+                <span>IDV </span>:
+                <span>906.000.0</span>
+              </p>
+              <p>
+                <span>NCB</span>:
+                <span>25%</span>
+              </p>
+              <p>
+                <span>Premium Amount </span>:
+                <span>26847</span>
+              </p>
+              <p>
+                <span>Additional Cover</span>:
+                <span>NOT Applicable</span>
+              </p>
+              <p>
+                <span>Add On Covers</span>:
+                <span>NOT Applicable</span>
+              </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="summary_page_accordion_content">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  PAYMENT DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>
+                <span>Proposal No </span>:
+                <span>BA023156178</span>
+              </p>
+              <p>
+                <span>Status </span>:
+                <span>Success</span>
+              </p>
+              <p>
+                <span>Payment Mode </span>:
+                <span>Online</span>
+              </p>
+              <p>
+                <span>Amount</span>:
+                <span>50014</span>
+              </p>
+
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="summary_page_accordion_content">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  NOMINEE DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>
+                <span>Nominee Name </span>:
+                <span>xxxxx</span>
+              </p>
+              <p>
+                <span>Nominee DOB </span>:
+                <span>15/07/1993</span>
+              </p>
+              <p>
+                <span>Nominee Relationship </span>:
+                <span>Brother</span>
+              </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="summary_page_accordion_content">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  DOCUMENT DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <button mat-raised-button class="button1 mt-3">Edit
+                <mat-icon class="edit_icon">edit</mat-icon>
+              </button>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

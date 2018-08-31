@@ -1,0 +1,187 @@
+import { LocalStorageService } from './common.storage.service';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { URLCONSTANT } from "../URLConstants/URL_Constant";
+import { Observable } from 'rxjs';
+import { Observer } from 'rxjs';
+import { DatePipe } from '@angular/common';
+
+/**
+ * @author sathish kumar
+ * 
+ */
+@Injectable({
+    providedIn: 'root',
+})
+export class CommonService {
+
+    counter = 0;
+    productCode;
+    makeModelArray = [];
+    bundleList = [];
+    subModelArrayList;
+    tempArrayList;
+
+    allMakeModel;
+    test = "pcc";
+    allSubmodel;
+    constructor(private http: HttpClient,
+        private storage: LocalStorageService,
+        public datepipe: DatePipe) {
+        if (this.storage.getItem('allmake') === null) {
+            this.allMakeModel = this.getAllMake();
+            this.allMakeModel.subscribe((response) => {
+                this.storage.setItem("allmake", response);
+                this.allMakeModel = response;
+            });
+        }
+        else {
+            this.allMakeModel = this.storage.getItem("allmake");
+        }
+
+    }
+
+
+
+    /**
+     * 
+     * this service is used to get all make models for all the vehicles
+     * 
+     * * */
+    getAllMake() {
+        return this.http.post(URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_TYPE_URL, '');
+    }
+
+
+    /**
+     * 
+     * this method is used to get all submodel by subline code
+     * 
+     ***/
+
+    getAllSubModel(sublineCode) {
+        return this.http.post(URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_CATEGORY_URL + "?sublineCode=" + sublineCode, '');
+    }
+
+
+        /*
+         * 
+         *  this method is get previous insurerList dropdown
+         *  
+         */
+    getPreviousInsurer(callback?) {
+        this.http.post(URLCONSTANT.GET_INSURER_DETAILS_URL, '').subscribe((data) => {
+            return callback(this.filterPreviousInsurerDetails(data));
+        });
+    }
+
+
+    /*
+     * 
+     *  this method is just to create a mock observable to all subscribers
+     *  
+     */
+    createObservable(data: any): Observable<any> {
+        return Observable.create((observer: Observer<any>) => {
+            observer.next(data);
+            observer.complete();
+        });
+    }
+
+    /**
+     * 
+     * this method is used to filter all make model list by productCode
+     * 
+     * ***/
+    getAllMakeAndModelListByProductCode(productCode) {
+        var array = this.allMakeModel.makeModelMap;
+        for (let key in array) {
+            var pc = array[key];
+            Object.keys(pc).map(x => {
+                if (x == productCode) {
+                    var finalArray = pc[productCode];
+                    for (let index = 0; index < finalArray.length; index++) {
+                        var make_N_model = finalArray[index].makeName + "," + finalArray[index].name;
+                        finalArray[index].makeAndName=make_N_model;
+                        this.makeModelArray.push(finalArray[index]);
+                    }
+                }
+            });
+        }
+        return this.makeModelArray;
+    }
+
+
+/*
+* this method is used to get all submodelList subline code
+*/
+getAllSubmodelBySubLineCode(sublineCode,callback){
+    if (this.storage.getItem("allSubModel") === null) {
+        this.getAllSubModel(sublineCode).subscribe((response)=>{
+            this.storage.setItem("allSubModel", response);
+            return callback(response);
+           });
+    }
+    else{
+        return callback(this.storage.getItem("allSubModel"));
+    }
+   }
+
+
+
+    public convertDateToStringFormat(date): string {
+        return this.datepipe.transform(date, "dd/MM/yyyy");
+    }
+
+
+    /*
+     * 
+     *  this method filter the insurerList data for dropdown
+     *  
+     */
+    filterPreviousInsurerDetails(insurerDetailsList) {
+        let resultList = [];
+        let insurerList = insurerDetailsList.insurerList;
+        for (let i = 0; i < insurerList.length; i++) {
+            resultList.push(insurerList[i].insurerName);
+        }
+        return insurerList;
+    }
+
+
+
+    /**
+  * this method is used to call prefered insurer
+  * **/
+  getPrefferedInsurer(prefferedInsurerRequest,callback?) {
+    if(this.storage.getItem("prefferedInsurerList")===null)
+    {
+      this.http.post(URLCONSTANT.GET_PREFFERED_INSURER_URL,prefferedInsurerRequest).subscribe((data:any)=>{
+        this.storage.setItem("prefferedInsurerList", data.preferredInsurers);
+        return callback(data.preferredInsurers);
+      });
+    }
+    else{
+      return callback(this.storage.getItem("prefferedInsurerList"));
+    }
+  }
+
+  /**
+      * this method is used to get Bundle list data
+      * **/
+     getBundleDetailsData(callback?) {
+        if(this.storage.getItem("bundleLIst")===null)
+        {
+          this.http.post(URLCONSTANT.GET_BUNDLE_LIST_URL, '').subscribe((response:any) => {
+            this.bundleList=response;
+            this.storage.setItem("bundleLIst", response);
+            return callback(response);
+          });
+        }
+        else{
+          return callback(this.storage.getItem("bundleLIst"));
+        }
+          
+      }
+
+}

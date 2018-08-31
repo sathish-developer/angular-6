@@ -1,0 +1,15 @@
+import { KeysPipe } from '../../../commonservices/keys.filter.service';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+/**
+ * 
+ * @author sathish kumar
+ * 
+ * **/
+@NgModule({
+    declarations:[KeysPipe],
+    imports:[CommonModule],
+    exports:[KeysPipe]
+})
+export class pipeModule { }

@@ -1,0 +1,133 @@
+import { CarPremiumService } from './../../services/car.premium.service';
+import { CarDropDownService } from './../../services/car.dropdown.service';
+import { constant } from './../../../../../commonservices/common.constant.service';
+import { LocalStorageService } from '../../../../../commonservices/common.storage.service';
+import { CommonService } from '../../../../../commonservices/common.service';
+import { CarFormControlService } from '../../services/car.formcontrol.service';
+import { Component, OnInit } from '@angular/core';
+import { MatStepper } from "@angular/material";
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import {FormGroup} from '@angular/forms';
+import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
+import { select } from '../../car-models/car.dropdown.model';
+
+
+@Component({
+  selector: 'app-car-registration',
+  templateUrl: './car-registration.component.html',
+  styleUrls: ['./car-registration.component.css']
+})
+export class CarRegistrationComponent implements OnInit {
+  isLinear = false;
+  proposerForm: FormGroup;
+  registrationForm: FormGroup;
+
+  subModelList;
+  subModelArrayList;
+  parentUrl:UrlSegment[];
+  registeredNames: select[];
+  manufacturings: select[];
+  previousPolicys: select[];
+  previousInsuranceCompanys: select[] = [
+    { value: 'Bajaj-0', viewValue: 'Bajaj' },
+    { value: 'HDFC-1', viewValue: 'HDFC' },
+    { value: 'ICICI-2', viewValue: 'ICICI' }
+  ];
+ 
+  makeDropDownList: any[];
+  makeModelArray=[];
+  test=[];
+
+  subModel = new FormControl();
+  subModeloptions: string[] = ['1',
+    '2',
+    '3',
+    '4'
+  ];
+  subModelfiltered: Observable<string[]>;
+  constructor( private carFormControlService:CarFormControlService,
+    public router: Router,
+    public activatedroute:ActivatedRoute,
+    public commonService:CommonService,
+    public storage:LocalStorageService,
+    public carDropdown:CarDropDownService,
+    public premium:CarPremiumService) {}
+
+  ngOnInit() {
+      this.carDropdown.getRegistredNames(response=>{
+         this.registeredNames=response;
+      });
+      this.carDropdown.getManufacturings(response=>{
+        this.manufacturings=response;
+      });
+      this.carDropdown.getPreviousPolicys(response=>{
+        this.previousPolicys=response;
+      });
+      this.makeDropDownList=this.commonService
+      .getAllMakeAndModelListByProductCode(constant.sublineCode);
+
+      if(this.storage.getItem("allSubModel")===null)
+      {
+        this.commonService.getAllSubModel(constant.sublineCode).subscribe((response:any)=>{
+          this.storage.setItem("allSubModel",response);
+          this.subModelList=response;
+        this.commonService.createObservable(this.getSubModelDropDown()).subscribe((response)=>{
+          this.subModelArrayList=response;
+        });    
+      });
+      }
+      else{
+        this.subModelList=this.storage.getItem("allSubModel");
+        this.commonService.createObservable(this.getSubModelDropDown()).subscribe((response)=>{
+          this.subModelArrayList=response;
+        });
+      }
+     // this.storage.setItem('car-make',this.makeDropDownList);
+     
+    this.proposerForm =this.carFormControlService.getCarProposerForm();
+    this.registrationForm=this.carFormControlService.getCarRegistrationForm();
+    window.scrollTo(0, 0);
+  }
+  goForwardRegistration(stepper:MatStepper)
+  {
+    if(this.proposerForm.valid)
+    {
+      stepper.next();
+    }
+  }
+
+  goForwardPremium(stepper:MatStepper)
+  {
+    console.log("registration form"+this.registrationForm.valid);
+    if(this.registrationForm.valid)
+    {
+      this.onclickCarRegistration(); 
+    }
+  }
+  onclickCarRegistration() {
+    this.activatedroute.parent.url.subscribe((URL)=>{
+        this.parentUrl=URL;
+    });
+    this.router.navigateByUrl(this.parentUrl+"/"+'premium');
+  }
+
+
+  getSubModelDropDown()
+  {
+    this.subModelArrayList=[];
+    var subModelDetails =this.subModelList.vehicleDetailsBySublineCode;
+    for(let index=0;index<subModelDetails.length;index++) {
+      var details = '';
+      var petrolOrDiseal = '';
+      if(subModelDetails[index].fuelType == 'DIESEL'){
+        petrolOrDiseal = "(D)";
+      }else if(subModelDetails[index].fuelType == 'PETROL'){
+        petrolOrDiseal = "(P)";
+      }
+      details = subModelDetails[index].subModelName+","+subModelDetails[index].engineCC+","+petrolOrDiseal+","+subModelDetails[index].seatingCapacity;
+      this.subModelArrayList.push(details);
+    }
+    return this.subModelArrayList;
+  }
+}

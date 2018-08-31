@@ -1,0 +1,301 @@
+import { PrefferedInsurerRequest } from '../car-models/car.prefferedInsurer.request.model';
+import { VehicleDetails, carQuoteRequest } from '../car-models/car.quote.request.model';
+import { LocalStorageService } from '../../../../commonservices/common.storage.service';
+import { CommonService } from '../../../../commonservices/common.service';
+import { URLCONSTANT } from '../../../../URLConstants/URL_Constant';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { CarPrefferedInsurerResponse } from '../car-models/car.prefferedInsurer.response.model';
+
+
+/**
+ * 
+ * @author sathish kumar
+ * 
+ * **/
+
+@Injectable()
+export class CarPremiumService {
+  result = [];
+  finalResult = [];
+  premiumResult = [];
+
+  additionalcoverlist = [];
+  addoncoverlist = [];
+  discountcoverlist = [];
+
+  PrefferedInsurerRequest: Array<PrefferedInsurerRequest> = [];
+
+  constructor(private http: HttpClient,
+    private common: CommonService, private storage: LocalStorageService) {
+    console.log("car premium service injected");
+
+
+  }
+
+  callPrefferedInsurer(callback?) {
+    this.getPrefferedInsurerList().then((res: any) => {
+      this.storage.setItem("prefferedInsurerList", res.preferredInsurers);
+      let quoteRequest = JSON.parse(localStorage.getItem("carQuoteRequest"));
+      return callback(this.filterPremium(quoteRequest, res.preferredInsurers, (data) => {
+        return data;
+      }));
+    });
+  }
+
+  /**
+   * this method is used to get Preffered Insurer List 
+   * **/
+  getPrefferedInsurerCalc() {
+    return this.http.get(URLCONSTANT.GET_PREFFERED_INSURER_URL).toPromise();
+  }
+
+  /**
+  * this method is used to get SingleInsurer calculation data
+  * **/
+  getSingleInsurerCalcData(data) {
+    return this.http.post(URLCONSTANT.SINGLE_INSURER_CALC_URL, data).toPromise();
+  }
+
+  /**
+   * this method is used to get all coverDetails
+   * **/
+  getCoverageData() {
+    return this.http.post(URLCONSTANT.GET_COVERAGES_URL, '');
+  }
+
+
+  /**
+  * this method is used to get preffered Insurer to return to component
+  * **/
+  getPrefferedInsurerList() {
+    let data;
+    let promise = new Promise((resolve, reject) => {
+      data = this.getPrefferedInsurer();
+      resolve(data);
+    }).catch((error) => {
+      console.log(error);
+    });
+    return promise;
+  }
+
+
+  /**
+  * this method is used to call the coverage list by product code
+  * this is general for all vehicle product
+  * 
+  * **/
+  getCoverageList(productCode, callback?) {
+    this.getCoverageData().subscribe((coverages) => {
+      this.filterCoverageListByProductCode(coverages, productCode, (addon, discount, additional) => {
+        return callback(addon, discount, additional);
+      });
+    });
+  }
+
+
+  /**
+   * this method is used to filter the coverage list by product code
+   * this is general for all vehicle product
+   * 
+   * **/
+  filterCoverageListByProductCode(coverageData, productCode, callback?) {
+    let addonList = [];
+    let discountList = [];
+    let additionalList = [];
+    let coverageObjectList = [];
+    let coverages = coverageData.coverageList;
+    //console.log("TEST"+JSON.stringify(coverages));
+    for (let key in coverages) {
+      if (key == productCode) {
+        coverageObjectList = coverages[productCode];
+        for (let j = 0; j < coverageObjectList.length; j++) {
+          let CoverageObject = coverageObjectList[j];
+          if (CoverageObject.coverType == 'ADDON') {
+            addonList.push(CoverageObject);
+          }
+          if (CoverageObject.coverType == 'DISCOUNTS') {
+            discountList.push(CoverageObject);
+          }
+          if (CoverageObject.coverType == 'ADDITIONAL') {
+            additionalList.push(CoverageObject);
+          }
+        }
+      }
+    }
+    return callback(addonList, discountList, additionalList);
+  }
+
+
+  /**
+   * this method is used to filter generate request for single insurer calculation based on preffered insurer list(that is already taken)
+   * **/
+  // filterPremium(prefferedInsurerList) {
+  //     let prefferedInsurer = prefferedInsurerList.preferredInsurers;
+  //     let request;
+  //     for (let i = 0; i < prefferedInsurer.length; i++) {
+  //         let preferredInsurer: CarPrefferedInsurerRequest = prefferedInsurer[i];
+  //         request = { CustomerDetails: {}, VehicleDetails: {}, QuotationData: {}, CoverDetails: {}, } as carQuoteRequest;
+  //         request.InsurerDetails = [];
+  //         const insurerDetailsObj = {
+  //             "insurerCode": preferredInsurer.insurerCode,
+  //             "insurerName": "",
+  //             "idv": 0, "minIdv": 0,
+  //             "maxIdv": 0,
+  //             "originalIdv": 0,
+  //             "planName": ""
+  //         };
+  //         request.InsurerDetails.push(insurerDetailsObj);
+  //     }
+  //     return request;
+  // }
+
+
+
+  /**
+   * this method is used to filter generate request for 
+   * single insurer calculation based on preffered insurer list(that is already taken)
+   * **/
+
+  filterPremium(quoteRequest, prefferedInsurerList, callback?) {
+    //console.log("quote request" + JSON.stringify(quoteRequest));
+    let prefferedInsurer = prefferedInsurerList;
+    let request;
+    for (let i = 0; i < prefferedInsurer.length; i++) {
+      let preferredInsurer: CarPrefferedInsurerResponse = prefferedInsurer[i];
+      request = quoteRequest;
+      request.InsurerDetails = [];
+      const insurerDetailsObj = {
+        "insurerCode": preferredInsurer.insurerCode,
+        "insurerName": "",
+        "idv": 0, "minIdv": 0,
+        "maxIdv": 0,
+        "originalIdv": 0,
+        "planName": ""
+      };
+      request.InsurerDetails.push(insurerDetailsObj);
+      let promise = new Promise((resolve, reject) => {
+        resolve(this.getSingleInsurerCalcData(request));
+      }).then((response) => {
+        this.assignPremium(prefferedInsurerList, response, (data) => {
+          this.premiumResult = data;
+          return callback(this.premiumResult);
+        });
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+
+    return callback(this.premiumResult);
+  }
+
+
+  /**
+ * this method is used assign the filtered premium to the array list for 
+ * to render in user view
+ * **/
+  assignPremium(prefferedInsurerList, response, callback?) {
+    let insurerList = prefferedInsurerList;
+    let premium = response.premium;
+    //let premiumInsurerCode = {} as any;
+    let insurerCode = '0' as string;
+    for (let i = 0; i < insurerList.length; i++) {
+      insurerCode = insurerList[i].insurerCode;
+      for (let key in premium) {
+        if (key == insurerCode) {
+          this.result = premium[key];
+          this.result["imagePath"] = insurerList[i].imagePath;
+          this.finalResult.push(this.result);
+        }
+      }
+    }
+    return callback(this.finalResult);
+  }
+
+
+  /**
+   * this method is used to simply return the final result arraylist which has the value
+   * **/
+  getFinalPremium(callback?) {
+    console.log("in service " + this.finalResult);
+    return callback(this.finalResult);
+  }
+
+  /**
+  * this method is used to call prefered insurer
+  * **/
+  getPrefferedInsurer() {
+    let prefferedInsurerList = this.http.post(URLCONSTANT.GET_PREFFERED_INSURER_URL, this.storage.getItem("prefferedInsurerRequest")).toPromise();
+    return prefferedInsurerList;
+  }
+
+
+
+
+  /**
+    * this method is used to extract fueltype from submodellist 
+    * **/
+  getDieselFromSubModelList(userSelectedCarDetails, callback?) {
+    let fuelType = '';
+    let submodelList = this.storage.getItem("allSubModel");
+    for (let i = 0; i < submodelList.vehicleDetailsBySublineCode.length; i++) {
+      if (userSelectedCarDetails.VehicleDetails.makeName == submodelList.vehicleDetailsBySublineCode[i].makeName.split(',')[0]) {
+        fuelType = submodelList.vehicleDetailsBySublineCode[i].fuelType;
+      }
+    }
+    return callback(fuelType);
+  }
+
+
+  RecalculatePremium(callback?) {
+    let result = [];
+    let quoteRequest = JSON.parse(localStorage.getItem("carQuoteRequest"));
+    this.PrefferedInsurerRequest = JSON.parse(localStorage.getItem("prefferedInsurerList"));
+    console.log("request"+JSON.stringify(quoteRequest));
+    this.filterPremium(quoteRequest, this.PrefferedInsurerRequest, (data) => {
+      return callback(data);
+    });
+
+  }
+
+
+
+
+  getCoverSelection(coverObject?, index?, callback?) {
+    console.log(coverObject, index);
+
+    if (coverObject.coverType == 'ADDITIONAL') {
+      if (coverObject.selected) {
+        this.additionalcoverlist.push(coverObject);
+      }
+      else {
+        this.additionalcoverlist.splice(index,1);
+      }
+    }
+    else if (coverObject.coverType == 'ADDON') {
+      if (coverObject.selected) {
+        this.addoncoverlist.push(coverObject);
+      }
+      else {
+        this.addoncoverlist.splice(index,1);
+      }
+    }
+    else if (coverObject.coverType == 'DISCOUNT') {
+      if (coverObject.selected) {
+        this.discountcoverlist.push(coverObject);
+      }
+      else {
+        this.discountcoverlist.splice(index,1);
+      }
+    }
+    return callback(this.additionalcoverlist, this.addoncoverlist, this.discountcoverlist);
+  }
+
+
+  getAllSelectedCovers(callback)
+  {
+   return callback(this.additionalcoverlist,this.addoncoverlist,this.discountcoverlist);
+  }
+
+
+}

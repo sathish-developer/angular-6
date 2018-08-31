@@ -1,0 +1,160 @@
+import { carQuoteRequest, VehicleDetails, QuotationData, PreviousPolicyDetails, CoverDetails, CustomerDetails } from '../../car-models/car.quote.request.model';
+import { CarPremiumService } from '../../services/car.premium.service';
+import { CarDropDownService } from '../../services/car.dropdown.service';
+import { constant } from '../../../../../commonservices/common.constant.service';
+import { LocalStorageService } from '../../../../../commonservices/common.storage.service';
+import { CommonService } from '../../../../../commonservices/common.service';
+import { CarFormControlService } from '../../services/car.formcontrol.service';
+import { Component, OnInit } from '@angular/core';
+import { MatStepper } from "@angular/material";
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
+import { select } from '../../car-models/car.dropdown.model';
+import { DatePipe } from '@angular/common';
+import { PrefferedInsurerRequest } from '../../car-models/car.prefferedInsurer.request.model';
+
+
+@Component({
+  selector: 'app-car-registration',
+  templateUrl: './car-registration.component.html',
+  styleUrls: ['./car-registration.component.css']
+})
+export class CarRegistrationComponent implements OnInit {
+  isLinear = false;
+  proposerForm: FormGroup;
+  registrationForm: FormGroup;
+
+  CarprefferedinsurerRequest = {} as PrefferedInsurerRequest;
+
+  carQuoteRequest = {} as carQuoteRequest;
+  subModelList;
+  subModelArrayList;
+  parentUrl: UrlSegment[];
+  registeredNames: select[];
+  manufacturings: select[];
+  previousPolicysTypes: select[];
+  previousInsuranceCompanys: select[] = [
+    { value: 'Bajaj-0', viewValue: 'Bajaj' },
+    { value: 'HDFC-1', viewValue: 'HDFC' },
+    { value: 'ICICI-2', viewValue: 'ICICI' }
+  ];
+
+  makeDropDownList: any[];
+  previousInsurerDetailsList = [];
+  makeModelArray = [];
+  constructor(private carFormControlService: CarFormControlService,
+    public router: Router,
+    public activatedroute: ActivatedRoute,
+    public commonService: CommonService,
+    public storage: LocalStorageService,
+    public carDropdown: CarDropDownService,
+    public premium: CarPremiumService,
+    public datepipe: DatePipe) {
+    console.log("car reloading");
+  }
+
+  ngOnInit() {
+    this.CarprefferedinsurerRequest.productCode = constant.carProductCode;
+    this.storage.setItem("prefferedInsurerRequest", this.CarprefferedinsurerRequest);
+    this.carDropdown.getRegistredNames(response => {
+      this.registeredNames = response;
+    });
+    this.carDropdown.getManufacturings(response => {
+      this.manufacturings = response;
+    });
+    this.carDropdown.getPreviousPolicys(response => {
+      this.previousPolicysTypes = response;
+    });
+
+    this.commonService.getPreviousInsurer((data) => {
+      this.previousInsurerDetailsList = data;
+    });
+
+    this.makeDropDownList = this.commonService
+      .getAllMakeAndModelListByProductCode(constant.sublineCode);
+
+    if (this.storage.getItem("allSubModel") === null) {
+      this.commonService.getAllSubModel(constant.sublineCode).subscribe((response: any) => {
+        this.storage.setItem("allSubModel", response);
+        this.subModelList = response;
+        this.commonService.createObservable(this.getSubModelDropDown()).subscribe((response) => {
+          this.subModelArrayList = response;
+        });
+      });
+    }
+    else {
+      this.subModelList = this.storage.getItem("allSubModel");
+      this.commonService.createObservable(this.getSubModelDropDown()).subscribe((response) => {
+        this.subModelArrayList = response;
+      });
+    }
+    // this.storage.setItem('car-make',this.makeDropDownList);
+
+    this.proposerForm = this.carFormControlService.getCarProposerForm();
+    this.registrationForm = this.carFormControlService.getCarRegistrationForm();
+    window.scrollTo(0, 0);
+  }
+  goForwardRegistration(stepper: MatStepper) {
+    if (this.proposerForm.valid) {
+      let CustomerDetails = {} as CustomerDetails;
+      this.carQuoteRequest.CustomerDetails = CustomerDetails;
+      this.carQuoteRequest.VehicleDetails = this.proposerForm.value;
+      //console.log("customer type"+this.proposerForm.controls['customerType'].value);
+      this.carQuoteRequest.CustomerDetails.customerType = "CUSTOMER_" + this.proposerForm.controls['customerType'].value;
+      this.carQuoteRequest.VehicleDetails.registrationDate = this.commonService.convertDateToStringFormat(this.proposerForm.controls['registrationDate'].value);
+      this.storage.setItem("carQuoteRequest", this.carQuoteRequest);
+      stepper.next();
+    }
+  }
+
+  goForwardPremium(stepper: MatStepper) {
+    if (this.registrationForm.valid) {
+      let QuotationData = {} as QuotationData;
+      let PreviousPolicyDetails = {} as PreviousPolicyDetails;
+      this.carQuoteRequest.QuotationData = QuotationData;
+      this.carQuoteRequest.CoverDetails = [];
+      let policyStartDate = this.commonService.convertDateToStringFormat(this.registrationForm.controls['policyStartDate'].value);
+      let expiryDate = this.commonService.convertDateToStringFormat(this.registrationForm.controls['expiryDate'].value);
+      let prevPolicyExp = this.commonService.convertDateToStringFormat(this.registrationForm.controls['prevPolicyExp'].value);
+      this.carQuoteRequest.QuotationData.PreviousPolicyDetails = PreviousPolicyDetails;
+      this.carQuoteRequest.QuotationData.policyStartDate = policyStartDate;
+      this.carQuoteRequest.QuotationData.expiryDate = expiryDate;
+      this.carQuoteRequest.VehicleDetails.rtoName = this.registrationForm.controls['rtoName'].value;
+      this.carQuoteRequest.QuotationData.PreviousPolicyDetails.prevPolicyExp = prevPolicyExp;
+      this.carQuoteRequest.QuotationData.PreviousPolicyDetails.prevPolicyType = this.registrationForm.controls['prevPolicyType'].value;
+      this.carQuoteRequest.QuotationData.PreviousPolicyDetails.prevPolicyInsurerName = this.registrationForm.controls['prevPolicyInsurerName'].value;
+      console.log("complete form" + JSON.stringify(this.carQuoteRequest));
+      let quoteRequest = {"CustomerDetails":{"firstName":"","lastName":"","mobileNo":"","email":"","customerType":"CUSTOMER_INDIVIDUAL","aadharNumber":"--","dateOfBirth":"","address1":"","address2":"","address3":"","areaCode":"","areaName":"","cityCode":"","cityName":"","stateName":"","stateCode":"","pinCode":""},"QuotationData":{"quoteNo":"QPCC0000003617","lineOfBusiness":"MOTOR","subLine":"PRIVATE CAR","productCode":"PCC","productName":"COMPREHENSIVE","businessType":"RollOver","policyStartDate":"01/09/2018","expiryDate":"31/08/2019","isVipPolicy":"N","channelType":"POT","branchName":"","branchCode":"","quoteStatus":"QUOTE","insurerCode":"128","insurerName":"","intgQuotationNo":"Q/H/3121/0000046252","policyTenure":"1","PreviousPolicyDetails":{"prevPolicyNo":"","prevPolicyExp":"31/08/2018","prevPolicyNcb":"20","prevPolicyInsurerCode":"104","prevPolicyInsurerName":"BAJAJ ALLIANZ GENERAL INSURANCE CO. LTD.","isPrevPolicyClaim":"N","prevPolicyType":"COMPREHENSIVE"}},"VehicleDetails":{"engineNo":"","chassisNo":"","registrationNo":"MH-01-FS-1878","yearOfMfg":2017,"registrationDate":"01/08/2017","makeCode":"RLT","modelCode":"MD000335","makeName":"RENAULT","modelName":"KWID","subModelName":"RXL","subModelCode":"SM00003189","engineCC":"799","fuelType":"PETROL","rtoCode":"MH01","rtoName":"MUMBAI","actualIdv":0,"vehicleAge":1.09,"seatingCapacity":"5","cubicCapacity":"799","zone":"ZONE A","currentNCB":"25","isInBuilt":"false","isCarOwnerChanged":"N","rtoNo":"MH01","rtoRegistration":"MUMBAI","showRoomPrice":0,"carrierType":"","noOfTraillers":"","trailerIdvDto":[]},"CoverDetails":[],"InsurerDetails":[]};
+      //this.storage.setItem("carQuoteRequest", this.carQuoteRequest);
+      this.storage.setItem("carQuoteRequest", quoteRequest);
+
+      this.onclickCarRegistration();
+    }
+  }
+  onclickCarRegistration() {
+    this.activatedroute.parent.url.subscribe((URL) => {
+      this.parentUrl = URL;
+    });
+    this.router.navigateByUrl(this.parentUrl + "/" + 'premium');
+  }
+
+
+  getSubModelDropDown() {
+    this.subModelArrayList = [];
+    var subModelDetails = this.subModelList.vehicleDetailsBySublineCode;
+    for (let index = 0; index < subModelDetails.length; index++) {
+      var details = '';
+      var petrolOrDiseal = '';
+      if (subModelDetails[index].fuelType == 'DIESEL') {
+        petrolOrDiseal = "(D)";
+      } else if (subModelDetails[index].fuelType == 'PETROL') {
+        petrolOrDiseal = "(P)";
+      }
+      details = subModelDetails[index].subModelName + "," + subModelDetails[index].engineCC + "," + petrolOrDiseal + "," + subModelDetails[index].seatingCapacity;
+      this.subModelArrayList.push(details);
+    }
+    return this.subModelArrayList;
+  }
+}

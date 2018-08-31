@@ -1,0 +1,152 @@
+import { LocalStorageService } from './common.storage.service';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { URLCONSTANT } from "../URLConstants/URL_Constant";
+import { Observable } from 'rxjs';
+import { Observer } from 'rxjs';
+import { DatePipe } from '@angular/common';
+
+/**
+ * @author sathish kumar
+ * 
+ */
+@Injectable({
+    providedIn: 'root',
+})
+export class CommonService {
+
+    counter = 0;
+    productCode;
+    makeModelArray = [];
+    subModelArrayList;
+    tempArrayList;
+
+    allMakeModel;
+    test = "pcc";
+    allSubmodel;
+    constructor(private http: HttpClient,
+        private storage: LocalStorageService,
+        public datepipe: DatePipe) {
+        if (this.storage.getItem('allmake') === null) {
+            this.allMakeModel = this.getAllMake();
+            this.allMakeModel.subscribe((response) => {
+                this.storage.setItem("allmake", response);
+                this.allMakeModel = response;
+            });
+        }
+        else {
+            this.allMakeModel = this.storage.getItem("allmake");
+        }
+    }
+
+
+
+    /**
+     * 
+     * this service is used to get all make models for all the vehicles
+     * 
+     * * */
+    getAllMake() {
+        return this.http.post(URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_TYPE_URL, '');
+    }
+
+
+    /**
+     * 
+     * this method is used to get all submodel by subline code
+     * 
+     ***/
+
+    getAllSubModel(sublineCode) {
+        return this.http.post(URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_CATEGORY_URL + "?sublineCode=" + sublineCode, '');
+    }
+
+
+        /*
+         * 
+         *  this method is get previous insurerList dropdown
+         *  
+         */
+    getPreviousInsurer(callback?) {
+        this.http.post(URLCONSTANT.GET_INSURER_DETAILS_URL, '').subscribe((data) => {
+            return callback(this.filterPreviousInsurerDetails(data));
+        });
+    }
+
+
+    /*
+     * 
+     *  this method is just to create a mock observable to all subscribers
+     *  
+     */
+    createObservable(data: any): Observable<any> {
+        return Observable.create((observer: Observer<any>) => {
+            observer.next(data);
+            observer.complete();
+        });
+    }
+
+    /**
+     * 
+     * this method is used to filter all make model list by productCode
+     * 
+     * ***/
+    getAllMakeAndModelListByProductCode(productCode) {
+        var array = this.allMakeModel.makeModelMap;
+        for (let key in array) {
+            var pc = array[key];
+            Object.keys(pc).map(x => {
+                if (x == productCode) {
+                    var finalArray = pc[productCode];
+                    for (let index = 0; index < finalArray.length; index++) {
+                        var make_N_model = finalArray[index].makeName + "," + finalArray[index].name;
+                        //   console.log("make_N_model --> "+make_N_model);
+                        this.makeModelArray.push(make_N_model);
+                    }
+                }
+            });
+        }
+        return this.makeModelArray;
+    }
+
+
+
+    //      getSubModelDropDown(subModelList)
+    //   {
+    //     var subModelDetails =subModelList.vehicleDetailsBySublineCode;
+    //     for(let index=0;index<subModelDetails.length;index++) {
+    //       var details = '';
+    //       var petrolOrDiseal = '';
+    //       if(subModelDetails[index].fuelType == 'DIESEL'){
+    //         petrolOrDiseal = "(D)";
+    //       }else if(subModelDetails[index].fuelType == 'PETROL'){
+    //         petrolOrDiseal = "(P)";
+    //       }
+    //       details = subModelDetails[index].subModelName+","+subModelDetails[index].engineCC+","+petrolOrDiseal+","+subModelDetails[index].seatingCapacity;
+    //       this.subModelArrayList.push(details);
+    //     }
+    //     return this.createObservable(this.subModelArrayList);
+    //   }
+
+
+    public convertDateToStringFormat(date): string {
+        return this.datepipe.transform(date, "dd/MM/yyyy");
+    }
+
+
+    /*
+     * 
+     *  this method filter the insurerList data for dropdown
+     *  
+     */
+    filterPreviousInsurerDetails(insurerDetailsList) {
+        let resultList = [];
+        let insurerList = insurerDetailsList.insurerList;
+        for (let i = 0; i < insurerList.length; i++) {
+            resultList.push(insurerList[i].insurerName);
+        }
+        return insurerList;
+    }
+
+
+}

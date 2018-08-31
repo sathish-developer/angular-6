@@ -1,0 +1,129 @@
+import { LocalStorageService } from './common.storage.service';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { URLCONSTANT } from "../URLConstants/URL_Constant";
+import { Observable } from 'rxjs';
+import {Observer} from 'rxjs';
+
+/**
+ * @author sathish kumar
+ * 
+ */
+@Injectable({
+    providedIn: 'root',
+})
+export class CommonService{
+
+    counter=0;
+    productCode;
+    makeModelArray=[];
+    subModelArrayList;
+    tempArrayList;
+
+    allMakeModel;
+    test="pcc";
+    allSubmodel;
+    constructor(private http:HttpClient,private storage:LocalStorageService){
+          if(this.storage.getItem('allmake')===null)
+          {
+            this.allMakeModel=this.getAllMake();
+            this.allMakeModel.subscribe((response)=>{
+            this.storage.setItem("allmake",response);    
+            this.allMakeModel=response;
+           });
+          }
+          else{
+              this.allMakeModel=this.storage.getItem("allmake");
+          }
+           console.log("common service injected");
+    }
+
+    
+    
+/**
+ * 
+ * this service is used to all make models for all the vehicles
+ * 
+ * * */
+     getAllMake()
+     {
+         return this.http.get(URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_TYPE_URL);
+     }
+
+
+    // getAllSubModel(sublineCode)
+    // {
+    //     return this.http.get(URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_CATEGORY_URL+"?sublineCode="+sublineCode);
+    // }
+
+
+    getAllSubModel(sublineCode)
+    {
+    return this.http.get(URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_CATEGORY_URL+"?sublineCode="+sublineCode);
+    }
+
+
+
+    //   getAllSubModelList(sublineCode)
+    //   {
+    //         //this.tempArrayList=this.getAllSubModel(sublineCode);
+    //         //return this.tempArrayList.subscribe((this.getSubModelDropDown));
+    //     //return this.createObservable(this.getSubModelDropDown(this.tempArrayList));
+    // }
+
+
+    
+
+
+
+
+     /*
+      * 
+      *  this method is just to create a mock observable to all subscribers
+      *  
+      */
+    createObservable(data: any):Observable<any>
+    {
+     return Observable.create((observer:Observer<any>)=>{
+        observer.next(data);
+        observer.complete();
+     });
+    }
+
+     getAllMakeAndModelListByProductCode(productCode){
+             var array =this.allMakeModel.makeModelMap;
+           for (let key in array) {
+            var pc = array[key];
+         Object.keys(pc).map(x=>{
+             if(x==productCode){
+             var finalArray = pc[productCode];
+                for(let index=0;index<finalArray.length;index++){
+               var make_N_model = finalArray[index].makeName+","+finalArray[index].name;
+                //   console.log("make_N_model --> "+make_N_model);
+                   this.makeModelArray.push(make_N_model);
+               }
+             }
+            });
+           }
+        return this.makeModelArray;
+     }
+
+
+
+//      getSubModelDropDown(subModelList)
+//   {
+//     var subModelDetails =subModelList.vehicleDetailsBySublineCode;
+//     for(let index=0;index<subModelDetails.length;index++) {
+//       var details = '';
+//       var petrolOrDiseal = '';
+//       if(subModelDetails[index].fuelType == 'DIESEL'){
+//         petrolOrDiseal = "(D)";
+//       }else if(subModelDetails[index].fuelType == 'PETROL'){
+//         petrolOrDiseal = "(P)";
+//       }
+//       details = subModelDetails[index].subModelName+","+subModelDetails[index].engineCC+","+petrolOrDiseal+","+subModelDetails[index].seatingCapacity;
+//       this.subModelArrayList.push(details);
+//     }
+//     return this.createObservable(this.subModelArrayList);
+//   }
+}

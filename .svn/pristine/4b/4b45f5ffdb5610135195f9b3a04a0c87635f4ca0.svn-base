@@ -1,0 +1,52 @@
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UrlSegment, Router, ActivatedRoute } from '../../../../../../node_modules/@angular/router';
+
+@Component({
+  selector: 'app-car-customer-details',
+  templateUrl: './car-customer-details.component.html',
+  styleUrls: ['./car-customer-details.component.css']
+})
+export class CarCustomerDetailsComponent implements OnInit {
+
+  formGroup: FormGroup;
+
+  nameFormGroup: FormGroup;
+  emailFormGroup: FormGroup;
+
+  /** Returns a FormArray with the name 'formArray'. */
+  get formArray(): AbstractControl | null { return this.formGroup.get('formArray'); }
+
+  constructor(private _formBuilder: FormBuilder, public router: Router,public activatedroute:ActivatedRoute) { }
+  parentUrl:UrlSegment[];
+
+  ngOnInit() {
+    this.formGroup = this._formBuilder.group({
+      formArray: this._formBuilder.array([
+
+        this._formBuilder.group({
+          firstNameFormCtrl: ['', Validators.required],
+          lastNameFormCtrl: ['', Validators.required],
+        }),
+        this._formBuilder.group({
+          emailFormCtrl: ['', Validators.required]
+        }),
+      ])
+    });
+    window.scrollTo(0, 0);
+  }
+  headlistClass = [
+    { id: 1, name: 'Superman' },
+    { id: 2, name: 'Batman' },
+    { id: 5, name: 'BatGirl' },
+    { id: 3, name: 'Robin' },
+    { id: 4, name: 'Flash' }
+  ];
+
+  gotoSummaryDetails() {
+    this.activatedroute.parent.url.subscribe((URL) => {
+      this.parentUrl = URL;
+    });
+    this.router.navigateByUrl(this.parentUrl + "/" + 'summary-details');
+  }
+}

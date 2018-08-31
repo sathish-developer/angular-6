@@ -1,0 +1,64 @@
+import { CommonService } from './../../../../commonservices/common.service';
+import { URLCONSTANT } from './../../../../URLConstants/URL_Constant';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from "../../../../../../node_modules/@angular/core";
+import { carQuoteRequest, InsurerDetail } from "../car-models/car.quote.request.model";
+import { CarPrefferedInsurerRequest } from '../car-models/car.prefferedInsurer.request.model';
+
+@Injectable()
+export class CarPremiumService {
+
+    constructor(private http: HttpClient, private common: CommonService) {}
+
+
+    getPrefferedInsurerCalc() {
+        return this.http.get(URLCONSTANT.GET_PREFFERED_INSURER_URL).toPromise();
+    }
+
+    getSingleInsurerCalcData(data) {
+        return this.http.post(URLCONSTANT.SINGLE_INSURER_CALC_URL, data).toPromise();
+    }
+
+
+
+    getPrefferedInsurerList() {
+        let data;
+        let promise = new Promise((resolve, reject) => {
+            data = this.getPrefferedInsurer();
+            resolve(data);
+        });
+        return promise;
+    }
+
+
+    filterPremium(prefferedInsurerList) {
+        let prefferedInsurer = prefferedInsurerList.preferredInsurers;
+        let request;
+        for (let i = 0; i < prefferedInsurer.length; i++) {
+            let preferredInsurer: CarPrefferedInsurerRequest = prefferedInsurer[i];
+            request = { CustomerDetails: {}, VehicleDetails: {}, QuotationData: {}, CoverDetails: {}, } as carQuoteRequest;
+            request.InsurerDetails = [];
+            const insurerDetailsObj = {
+                "insurerCode": preferredInsurer.insurerCode,
+                "insurerName": "",
+                "idv": 0, "minIdv": 0,
+                "maxIdv": 0,
+                "originalIdv": 0,
+                "planName": ""
+            };
+            request.InsurerDetails.push(insurerDetailsObj);
+        }
+        return request;
+    }
+
+
+
+
+
+
+        getPrefferedInsurer() {
+        let prefferedInsurerList = this.http.get(URLCONSTANT.GET_PREFFERED_INSURER_URL).toPromise();
+        return prefferedInsurerList;
+    }
+
+}

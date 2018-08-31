@@ -1,0 +1,30 @@
+.headerContact {
+  padding: 2px 2px;
+  background-color: #ddd0;
+  font-size: 13px;
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+  border-bottom: 1px solid #ff8409;
+}
+
+.headerContact>div p img {
+  width: 32px;
+}
+
+.headerContact>div p {
+  display: inline;
+}
+
+@media screen and (max-width:576px) {
+  .headerContact {
+    padding: 2px 2px;
+    background-color: #ddd;
+    font-size: 12px;
+  }
+  .headerContact>div p {
+    display: block;
+    text-align: center;
+    margin-bottom: 0px;
+  }
+}

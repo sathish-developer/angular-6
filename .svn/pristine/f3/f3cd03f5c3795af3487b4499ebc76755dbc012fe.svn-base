@@ -1,0 +1,33 @@
+import { FormBuilder,Validators } from '@angular/forms';
+import { Injectable } from "@angular/core";
+
+
+
+@Injectable()
+export class CarFormControlService{
+
+    constructor(private formBuilder: FormBuilder){}
+    getCarProposerForm()
+    {
+       return this.formBuilder.group({
+            registrationNo: ['MH-01-DS-4789', Validators.required],
+            customerType: ['', Validators.required],
+            yearOfMfg:['', Validators.required],
+            registrationDate:['', Validators.required],
+            makeName:['RENAULT,KWID', Validators.required],
+            subModelName:['RXL,799,(P),(5)', Validators.required]
+          });
+    }
+    getCarRegistrationForm()
+    {
+       return this.formBuilder.group({
+         rtoName: ['MUMBAI,MH01', Validators.required],
+         prevPolicyType: ['', Validators.required],
+         prevPolicyInsurerName: ['', Validators.required],
+         prevPolicyExp: ['', Validators.required],
+         policyStartDate: ['', Validators.required],
+         expiryDate: ['', Validators.required]
+       });
+
+    }
+}

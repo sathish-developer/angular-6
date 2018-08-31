@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Hi</h1>
+<div mat-dialog-content>
+  <p>Want to Modify Your IDV?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.idv_amt">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="idvNo()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.idv_amt" (click)="idvYes()">Yes</button>
+</div>

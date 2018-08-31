@@ -1,0 +1,8 @@
+<mat-toolbar mat-dialog-title color="accent">Recalculate Premium ?</mat-toolbar>
+<div mat-dialog-content>
+    There is a change in cover selection !
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="ml-auto" color="primary" (click)="onNoClick()">Yes to Re-calclulate</button>
+  <button mat-button class="ml-auto" color="warn" (click)="onNoClick()">No to Proceed</button>
+</div>

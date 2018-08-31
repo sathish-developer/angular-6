@@ -1,0 +1,11 @@
+declare module namespace {
+
+    export interface RootObject {
+        makeCode: string;
+        modelCode: string;
+        rtoCode: string;
+        productCode: string;
+    }
+
+}
+

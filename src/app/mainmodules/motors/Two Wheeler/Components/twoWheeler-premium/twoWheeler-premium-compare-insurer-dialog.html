@@ -1,0 +1,31 @@
+<mat-toolbar mat-dialog-title color="accent">Compare Result</mat-toolbar>
+<div mat-dialog-content>
+  <div class="table-wrapper compare-premium">
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <th class="text-center" style="vertical-align: middle;">Features</th>
+        <th *ngFor="let plan of data.comparePremiumList">
+          <div class="text-center">
+            <img class="max-width compare-img-dlg-img" src="{{plan.ins_img}}">
+            <p class="font_9b">({{plan.ins_plan}})</p>
+            <button mat-raised-button color="primary" class="compare-buy-now-xs-btn" (click)="gotoCarCustomerDet()">Buy Now</button>
+          </div>
+        </th>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="compare-table-td-xs"> Premium</td>
+          <td class="text-center compare-table-td-xs" *ngFor="let plan of data.comparePremiumList">
+            <i class="fas fa-rupee-sign font_12b compare-table-td-xs"></i> {{plan.premium_amt}}</td>
+        </tr>
+        <tr>
+          <td class="compare-table-td-xs"> IDV</td>
+          <td class="text-center compare-table-td-xs" *ngFor="let plan of data.comparePremiumList"><i class="fas fa-rupee-sign font_12b compare-table-td-xs"></i> {{plan.idv_amt}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="ml-auto" color="warn" (click)="onNoClick()">Close</button>
+</div>

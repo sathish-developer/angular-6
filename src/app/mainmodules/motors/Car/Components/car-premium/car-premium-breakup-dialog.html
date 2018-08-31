@@ -1,0 +1,81 @@
+<mat-toolbar mat-dialog-title color="accent">Premium Breakup</mat-toolbar>
+<div mat-dialog-content>
+  <div class="row mb-2">
+    <div class="col-sm-12 col-md-4 col-lg-4 text-center">
+      <img class="max-width" src="../../../../../../assets/{{premiumBreakUpDataList.premiumBreakData.imagePath}}">
+    </div>
+    <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+      <!-- {{premiumBreakUpDataList | json}} -->
+      <mat-label class="font_12b">IDV
+        <i class="fas fa-rupee-sign"></i> {{premiumBreakUpDataList.premiumBreakData.actualIdv}}</mat-label>
+    </div>
+    <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+      <mat-label class="font_12b">Premium
+        <i class="fas fa-rupee-sign"></i> {{premiumBreakUpDataList.premiumBreakData.grossPremium}}</mat-label>
+    </div>
+  </div>
+  <table class="premium-breakup-table">
+    <tr>
+      <td>
+        <h5>Basic Cover</h5>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Basic Own Damage Premium</td>
+      <td>---</td>
+      <td class="float-right">
+        <i class="fas fa-rupee-sign"></i> {{premiumBreakUpDataList.premiumBreakData.basicOdPremium}}</td>
+    </tr>
+    <tr>
+      <td>Third Party Cover Premium</td>
+      <td>---</td>
+      <td class="float-right">
+        <i class="fas fa-rupee-sign"></i>{{premiumBreakUpDataList.premiumBreakData.ThirdPartyPremium}}</td>
+    </tr>
+    <tr>
+      <td>Owner Driver Cover</td>
+      <td>---</td>
+      <td class="float-right">
+        <i class="fas fa-rupee-sign"></i>{{premiumBreakUpDataList.premiumBreakData.ownDriverCoverPremium}}</td>
+    </tr>
+    <tr>
+      <td>
+        <h5>Discounts</h5>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>No-Claim Bonus</td>
+      <td>---</td>
+      <td class="float-right">
+        <i class="fas fa-rupee-sign"></i> 0.00</td>
+    </tr>
+    <tr>
+      <td>
+        <h5>Premium Details</h5>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Package Premium</td>
+      <td>---</td>
+      <td class="float-right">
+        <i class="fas fa-rupee-sign"></i> 0.00</td>
+    </tr>
+    <tr>
+      <td>GST@18%</td><td>---</td>
+      <td class="float-right">
+        <i class="fas fa-rupee-sign"></i> 0.00</td>
+    </tr>
+    <tr>
+      <td>Final Premium</td>
+      <td>---</td>
+      <td class="float-right">
+        <i class="fas fa-rupee-sign"></i> 0.00</td>
+    </tr>
+  </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="ml-auto" color="warn" (click)="onNoClick()">Close</button>
+</div>

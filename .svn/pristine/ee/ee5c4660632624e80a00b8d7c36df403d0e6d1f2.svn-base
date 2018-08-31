@@ -1,0 +1,355 @@
+import { constant } from './../../../../../commonservices/common.constant.service';
+import { LocalStorageService } from './../../../../../commonservices/common.storage.service';
+import { CarPremiumService } from '../../services/car.premium.service';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSidenav } from '@angular/material';
+import { Router, UrlSegment, ActivatedRoute } from '@angular/router';
+import { carQuoteRequest } from '../../car-models/car.quote.request.model';
+
+/**
+ * 
+ * @author sathish kumar
+ * 
+ * **/
+
+
+export interface DialogData {
+  idv_amt: number;
+}
+
+@Component({
+  selector: 'car-premium',
+  templateUrl: './car-premium.component.html',
+  styleUrls: ['./car-premium.component.css'],
+  providers:[]
+})
+export class CarPremiumComponent implements OnInit {
+
+  //premium_list:{ins_img:string, ins_plan:string, idv_amt:number, addon_cover:string, premium_amt:number}[] = [];
+  //isChecked = false;
+  panelOpenState = false;
+  colXs = window.matchMedia("(max-width: 767px)");
+  checkvalue = [];
+  comparePremiumList = [];
+  tempComparePremiumList = [];
+  premiumResult = [];
+  finalResult = [];
+  insurerCode;
+  premiumInsurerCode;
+  addonList=[];
+  discountList=[];
+  additionalList=[];
+  subModelList;
+  userSelectedCarDetails:carQuoteRequest={} as carQuoteRequest;
+  constructor(public dialog: MatDialog, public router: Router,
+    public localStorageService: LocalStorageService,
+    public premium: CarPremiumService,
+    public activatedroute: ActivatedRoute) {
+    console.log("loading on constructor ");
+  }
+  parentUrl: UrlSegment[];
+
+  ngOnInit() {
+   // this.finalResult = [];
+  //  this.premiumResult = [];
+  this.finalResult=[];
+    if (this.colXs.matches) { // If media query matches
+      this.tempComparePremiumList = [1, 2];
+    } else {
+      this.tempComparePremiumList = [1, 2, 3];
+    }
+    console.log("loading on init ");
+
+    this.premium.callPrefferedInsurer();
+    
+    this.premium.getFinalPremium((response)=>{
+       this.finalResult=response;
+    });
+
+    this.premium.getCoverageList(constant.carProductCode,(addon,discount,additional)=>{
+      this.addonList=addon;
+      this.discountList=discount;
+      this.additionalList=additional;
+      //console.log("discountList"+JSON.stringify(this.discountList));
+    });
+
+    //console.log("quote request==>"+JSON.stringify(this.localStorageService.getItem("carQuoteRequest")));
+    this.userSelectedCarDetails=this.localStorageService.getItem("carQuoteRequest");
+    //this.subModelList=this.localStorageService.getItem("allSubModel");
+    // (this.localStorageService.getItem("allSubModel"),(data)=>{
+    //   //this.subModelList=data;
+    // });
+    this.premium.getDieselFromSubModelList(this.userSelectedCarDetails,(fuelType)=>{
+       console.log("fueltype"+fuelType);
+       this.userSelectedCarDetails.VehicleDetails.fuelType=fuelType;
+     });
+     
+    
+    window.scrollTo(0, 0);
+  }
+
+
+  // filterPremium(prefferedInsurerList) {
+  //   let prefferedInsurer = prefferedInsurerList.preferredInsurers;
+  //   let request;
+  //   for (let i = 0; i < prefferedInsurer.length; i++) {
+  //     let preferredInsurer: CarPrefferedInsurerRequest = prefferedInsurer[i];
+  //     request = { CustomerDetails: {}, VehicleDetails: {}, QuotationData: {}, CoverDetails: {}, } as carQuoteRequest;
+  //     request.InsurerDetails = [];
+  //     const insurerDetailsObj = {
+  //       "insurerCode": preferredInsurer.insurerCode,
+  //       "insurerName": "",
+  //       "idv": 0, "minIdv": 0,
+  //       "maxIdv": 0,
+  //       "originalIdv": 0,
+  //       "planName": ""
+  //     };
+  //     request.InsurerDetails.push(insurerDetailsObj);
+  //     let promise = new Promise((resolve, reject) => {
+  //       resolve(this.premium.getSingleInsurerCalcData(request));
+  //     }).then((response) => {
+  //       this.assignPremium(prefferedInsurerList, response);
+  //     });
+  //   }
+
+  //   return this.premiumResult;
+  // }
+
+  // assignPremium(prefferedInsurerList, response) {
+  //   let insurerList = prefferedInsurerList.preferredInsurers;
+  //   let premium = response.premium;
+  //   let premiumInsurerCode = {} as any;
+  //   let insurerCode = '0' as string;
+  //   for (let i = 0; i < insurerList.length; i++) {
+  //     insurerCode = insurerList[i].insurerCode;
+  //     for (let key in premium) {
+  //       if (key == insurerCode) {
+  //         this.result = premium[key];
+  //         this.result["imagePath"] = insurerList[i].imagePath;
+  //         this.finalResult.push(this.result);
+  //       }
+  //     }
+
+  //   }
+
+  // }
+
+
+
+  idv_amt = 1000;
+
+  // OnClick Edit IDV Icon
+  editIDVDlg(): void {
+    const dialogRef = this.dialog.open(CarPremiumIdvDialog, {
+      width: '250px',
+      data: { idv_amt: this.idv_amt }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.idv_amt = result;
+    });
+  }
+
+  // OnClick Premium BreakUp
+  premiumBreakUp(): void {
+    const dialogRef = this.dialog.open(CarPremiumBreakupDialog, {
+      width: '500px',
+      panelClass: 'myClass',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  gotoCarCustomerDet() {
+    this.activatedroute.parent.url.subscribe((URL) => {
+      this.parentUrl = URL;
+    });
+    this.router.navigateByUrl(this.parentUrl + "/" + 'customer-details');
+  }
+
+  // OnClick Add to Compare CheckBox
+
+  public addToCompare(insurerDetails, isChecked, index) {
+    var result = false;
+    //isChecked = !isChecked;
+    if (isChecked == true) {
+      if (this.colXs.matches) { // If media query matches
+        if (this.comparePremiumList.length >= 2) {
+          alert("Maximum 2 insurance offers can be compared");
+          result = false;
+        } else {
+          if (insurerDetails != null) {
+            this.comparePremiumList.push(insurerDetails);
+            this.tempComparePremiumList.splice(this.tempComparePremiumList.length - 1);
+          }
+          result = true;
+        }
+      } else {
+        if (this.comparePremiumList.length >= 3) {
+          alert("Maximum 3 insurance offers can be compared");
+          result = false;
+        } else {
+          if (insurerDetails != null) {
+            this.comparePremiumList.push(insurerDetails);
+            this.tempComparePremiumList.splice(this.tempComparePremiumList.length - 1);
+          }
+          result = true;
+        }
+      }
+
+    } else {
+      for (let key of this.comparePremiumList) {
+        if (key.id === insurerDetails.id) {
+          var idx = this.comparePremiumList.indexOf(key); // 1
+          // be careful, .indexOf() will return -1 if the item is not found
+          if (idx !== -1) {
+            this.comparePremiumList.splice(idx, 1);
+            this.tempComparePremiumList.push(this.tempComparePremiumList.length + 1);
+          }
+        }
+      }
+      result = false;
+    }
+
+    return result;
+  }
+
+  // Open Compare Premium Insurer List
+  openCompare(): void {
+    const dialogRef = this.dialog.open(CarPremiumCompareInsurerDialog, {
+      width: '700px',
+      panelClass: 'myClass',
+      data: { comparePremiumList: this.comparePremiumList }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  // Remove Plan From Compare List
+
+  // public removePlanFromCompareList(plan) {
+  //   var index = undefined;
+  //   var ins_plan = undefined;
+
+  //   for (var i = 0; i < this.comparePremiumList.length; i++) {
+  //     if (this.comparePremiumList[i].ins_plan === plan.ins_plan) {
+  //       index = i;
+  //       ins_plan = plan.ins_plan;
+  //       break;
+  //     }
+  //   }
+
+  //   if (index != undefined && ins_plan != undefined) {
+  //     this.tempComparePremiumList.push(this.tempComparePremiumList.length + 1)
+  //     this.comparePremiumList.splice(index, 1);
+  //     for (var i = 0; i < this.premium_list.length; i++) {
+  //       if (this.premium_list[i].ins_plan === ins_plan) {
+  //         this.checkvalue[i] = false;
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // Remove All Plan Compare List
+
+  // public removeAllCompareList() {
+  //   this.comparePremiumList = [];
+  //   if (this.colXs.matches) { // If media query matches
+  //     this.tempComparePremiumList = [1, 2];
+  //   } else {
+  //     this.tempComparePremiumList = [1, 2, 3];
+  //   }
+
+  //   for (var i = 0; i < this.premium_list.length; i++) {
+  //     this.checkvalue[i] = false;
+  //   }
+  // }
+
+  @ViewChild('sidenav') sidenav: MatSidenav;
+
+  reason = '';
+
+  close(reason: string) {
+    this.reason = reason;
+    this.sidenav.close();
+  }
+}
+
+
+
+// Modify IDV Dialog
+
+@Component({
+  selector: 'car-premium-idv-dialog',
+  templateUrl: 'car-premium-idv-dialog.html'
+})
+export class CarPremiumIdvDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<CarPremiumIdvDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+    console.log("loading idv dialog");
+
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+// Premium Breakup Dialog
+
+@Component({
+  selector: 'car-premium-breakup-dialog',
+  templateUrl: 'car-premium-breakup-dialog.html'
+})
+
+export class CarPremiumBreakupDialog {
+  constructor(
+    public dialogRef: MatDialogRef<CarPremiumBreakupDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+
+    console.log("premium break up dialog");
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+// Car Compare Premium Insurer Dialog
+
+@Component({
+  selector: 'car-premium-compare-insurer-dialog',
+  templateUrl: 'car-premium-compare-insurer-dialog.html'
+})
+
+export class CarPremiumCompareInsurerDialog {
+  constructor(
+    public dialogRef: MatDialogRef<CarPremiumCompareInsurerDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, public router: Router, public activatedroute: ActivatedRoute) {
+
+    console.log("CarPremiumCompareInsurerDialog");
+  }
+  parentUrl: UrlSegment[];
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  gotoCarCustomerDet() {
+    this.activatedroute.parent.url.subscribe((URL) => {
+      this.parentUrl = URL;
+    });
+    this.router.navigateByUrl(this.parentUrl + "/" + 'customer-details');
+  }
+}
+
+

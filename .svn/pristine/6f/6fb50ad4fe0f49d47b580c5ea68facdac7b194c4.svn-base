@@ -1,0 +1,41 @@
+
+export class URLCONSTANT{
+    public static PORT='8080';
+
+    public static ROOT_CONTEXT_NAME="masters/api/";
+
+    public static HOST="http://192.168.0.152:";
+
+    public static ROOT_URL=URLCONSTANT.HOST+URLCONSTANT.PORT+'/'+URLCONSTANT.ROOT_CONTEXT_NAME;
+   
+    public static MIS_URL=URLCONSTANT.HOST+URLCONSTANT.PORT+"/mis_local/api/";
+
+    public static GET_MODEL_BY_MAKE_VEHICLE_TYPE="getModelByMakeAndVehicleType.json";
+
+    public static SINGLE_INSURER_CALC="singleInsurerCalc.json";
+
+    public static GET_PREFFERED_INSURER="getPreferredInsurer.json";
+
+    public static COVERAGES="getCoveragesByProduct.json";
+
+    public static GET_BUNDLE_LIST_URL=URLCONSTANT.HOST+URLCONSTANT.PORT+"/POTUILOCAL/getListOfBundle.json";
+
+    public static TEST="test";
+
+    public static GET_MODEL_BY_MAKE_VEHICLE_CATEGORY="getVehicleDetailsByVehicleCategory.json";
+
+    public static GET_MODEL_BY_MAKE_VEHICLE_TYPE_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_TYPE;
+
+    public static GET_MODEL_BY_MAKE_VEHICLE_CATEGORY_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_CATEGORY;
+
+    public static SINGLE_INSURER_CALC_URL=URLCONSTANT.MIS_URL+URLCONSTANT.SINGLE_INSURER_CALC;
+
+    public static GET_PREFFERED_INSURER_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.GET_PREFFERED_INSURER;
+
+    public static GET_COVERAGES_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.COVERAGES;
+
+    public static TEST_URL="http://localhost:8080/masters/api/getCoveragesByProduct.json";
+
+    
+   
+}

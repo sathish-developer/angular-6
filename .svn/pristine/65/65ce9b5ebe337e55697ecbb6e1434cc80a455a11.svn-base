@@ -1,0 +1,29 @@
+
+export class URLCONSTANT{
+    public static PORT='8080';
+    public static ROOT_CONTEXT_NAME="masters/api/";
+    public static ROOT_URL='http://localhost:'+URLCONSTANT.PORT+'/'+URLCONSTANT.ROOT_CONTEXT_NAME;
+   
+    public static GET_MODEL_BY_MAKE_VEHICLE_TYPE="getModelByMakeAndVehicleType";
+
+    public static SINGLE_INSURER_CALC="singleInsurerCalc";
+
+    public static GET_PREFFERED_INSURER="getPreferredInsurer";
+
+
+
+    public static GET_MODEL_BY_MAKE_VEHICLE_CATEGORY="getVehicleDetailsByVehicleCategory?sublineCode=";
+
+
+    
+    public static GET_MODEL_BY_MAKE_VEHICLE_TYPE_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_TYPE;
+
+    public static GET_MODEL_BY_MAKE_VEHICLE_CATEGORY_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.GET_MODEL_BY_MAKE_VEHICLE_CATEGORY;
+
+    public static SINGLE_INSURER_CALC_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.SINGLE_INSURER_CALC;
+
+    public static GET_PREFFERED_INSURER_URL=URLCONSTANT.ROOT_URL+URLCONSTANT.GET_PREFFERED_INSURER;
+
+    
+   
+}

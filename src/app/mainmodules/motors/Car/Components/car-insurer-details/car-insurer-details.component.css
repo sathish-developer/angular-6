@@ -1,0 +1,36 @@
+.insureDetails {
+  padding: 3px;
+  border: 1px solid #ddd;
+  margin: 0px 0px 10px 0px;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(156, 156, 155, 0.4);
+}
+
+.insureDetails>div:nth-child(1) {
+  background-color: #fff;
+}
+
+.insureDetails>div {
+  background-color: #ddedf7;
+}
+
+.insureDetails>div:nth-child(2) {
+  border-right: 1px solid #000;
+}
+
+.insurerDetailsInfo {
+  padding: 5px 8px;
+  color: #0033cc;
+  text-align: center;
+}
+
+.insurerDetailsInfo span:nth-of-type(1) {
+  font-size: 12px;
+  border-bottom: 2px solid #88898e;
+}
+
+.insurerDetailsInfo span:nth-of-type(2) {
+  color: #fe5557;
+  font-size: 18px;
+  font-weight: 700;
+  display: block;
+}

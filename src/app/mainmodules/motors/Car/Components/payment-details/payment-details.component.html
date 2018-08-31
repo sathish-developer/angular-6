@@ -1,0 +1,11 @@
+
+      <form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm, $event)" method="post" [action]="PAYMENTURL" >
+       <label>proposal No:</label><input  name="proposalNo" [(ngModel)]="proposalNo"/>
+       <label>insurerCode:</label><input name="insurerCode"  [(ngModel)]="insurerCode"/>
+       <label>quoteNo No:</label><input name="quoteNo"  [(ngModel)]="quoteNo"/>
+       <label>amount:</label><input name="amount"   [(ngModel)]="amount"/>
+       <label>productCode:</label><input name="productCode"  [(ngModel)]="productCode"/>
+       <label>intgQuoteNo:</label><input name="intgQuoteNo"  [(ngModel)]="intgQuoteNo"/>
+       <label>intgCorrelationId:</label><input name="intgCorrelationId"  [(ngModel)]="intgCorrelationId"/>
+       <input type="submit" value="submit"/>
+      </form>

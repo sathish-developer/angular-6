@@ -1,0 +1,470 @@
+<!-- First Section Start -->
+<section class="scrollify">
+  <nav class=" navbar navbar-expand-md header sticky-top" id="sticky-top">
+    <a class="navbar-brand" href="#">
+      <img class="img-responsive logo" src="../../assets/images/gopolicylogo.png">
+    </a>
+    <button class="navbar-toggler" onclick="myFunction(this)" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+      aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="menuIcon">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Health Insurance </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Motor Insurance
+          </a>
+          <div class="dropdown-menu header_dropdown" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#">Car Insurance</a>
+            <a class="dropdown-item" href="#">Two Wheeler Insurance</a>
+            <a class="dropdown-item" href="#">GCV Insurance</a>
+            <a class="dropdown-item" href="#">PCV Insurance</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home Insurance </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Travel Insurance </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Other Insurance </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">My Account </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="home_main_content">
+    <div class="insurance_icon_content text-center">
+      <div class="balloon wow animated bounceInRight slower" (click)="getproduct('twowheeler')">
+        <img class="mt-3" src="../../assets/images/bike.png" alt="">
+        <p class="color-white">Two Wheeler</p>
+      </div>
+      <div class="balloon wow animated bounceInLeft slower2" (click)="getproduct('car')">
+        <img class="mt-3" src="../../assets/images/car.png" alt="">
+        <p class="color-white">Car</p>
+      </div>
+      <div class="balloon wow animated bounceInRight slower2">
+        <img class="mt-3" src="../../assets/images/pcv.png" alt="">
+        <p class="color-white">PCV</p>
+      </div>
+      <div class="balloon wow animated bounceInLeft slower">
+        <img class="mt-3" src="../../assets/images/gcv.png" alt="">
+        <p class="color-white">GCV</p>
+      </div>
+    </div>
+    <div class="card cardInsInf mx-auto my-1" style="max-width: 900px;">
+      <div class="card-header wow animated fadeInLeft slower">Providing Best Policy For You</div>
+      <div class="card-body">
+        <div class="row usagePoints keyPoint align-self-center">
+          <div class="col-3 p-0 text-center wow animated bounceInLeft slower">
+            <span>
+              <i class="fas fa-heartbeat"></i>
+            </span>24 X 7 Care
+          </div>
+          <div class="col-3 p-0 text-center wow animated bounceInLeft slower">
+            <span>
+              <i class="fas fa-key"></i>
+            </span>Finely Secured
+          </div>
+          <div class="col-3 p-0 text-center wow animated bounceInLeft slower">
+            <span>
+              <i class="far fa-gem"></i>
+            </span>Atmost Quality
+          </div>
+          <div class="col-3 p-0 text-center wow animated bounceInLeft slower">
+            <span>
+              <i class="fas fa-hand-holding-heart"></i>
+            </span>Our Promise
+          </div>
+        </div>
+        <button type="button" class="btn  advatageMore blueBg blueShad mt-4 float-right wow animated bounceInRight slower">More...</button>
+      </div>
+    </div>
+  </div>
+  <div class="sidenav-help">
+      <a href="#" class="call">044 - 4860 2200 <i class="fas fa-phone animate-call"></i></a>
+      <a href="#" class="mail">info@fasoftwares.com <i class="fas fa-envelope animate-mail"></i></a>
+    <!-- <div class="">
+      <p> 044 - 4860 2200</p>
+      <p><i class="fas fa-phone fa-2x"></i></p>
+    </div> -->
+  </div>
+</section>
+<!-- First Section End -->
+
+<!-- Second Section Start -->
+<section class="scrollify">
+  <div class="home_content home_content_2">
+    <h2 class="heading color-white wow fadeInUp" data-wow-delay="0.2s">Benefits of Go</h2>
+    <div class="review-section spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 push-8">
+            <img src="../../../../assets/images/quote.png" alt="" class="quote mb-5 wow fadeIn" data-wow-delay="0.2s">
+            <div class="review-text-slider owl-carousel">
+              <div class="review-text wow fadeInLeft">
+                <p>"I know that I have purchased what suits me. Such explanation and clear step by step guidance leaves no point for confusion. Thanks for creating this website named GoPolicy.”
+                </p>
+              </div>
+              <div class="review-text">
+                <p>"Thank you for facilitating and following up on the policy. Its been a very pleasurable experience with you folks at GoPolicy.”
+                </p>
+              </div>
+              <div class="review-text">
+                <p>"Thanking you very much for your support for getting our policy quickly, I would appreciate your work.”
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 p-0 pull-3 wow fadeInRight">
+            <div class="review-meta-slider owl-carousel pt-5">
+              <div class="author-meta">
+                <div class="author-avatar set-bg" data-setbg="../../../../assets/images/1.jpg"></div>
+                <div class="author-name">
+                  <h4>Aaron Ballance</h4>
+                  <p>Ceo Bitcoin</p>
+                </div>
+              </div>
+              <div class="author-meta">
+                <div class="author-avatar set-bg" data-setbg="../../../../assets/images/2.jpg"></div>
+                <div class="author-name">
+                  <h4>Jackson Nash</h4>
+                  <p>Head of Design</p>
+                </div>
+              </div>
+              <div class="author-meta">
+                <div class="author-avatar set-bg" data-setbg="../../../../assets/images/3.jpg"></div>
+                <div class="author-name">
+                  <h4>Katy Abrams</h4>
+                  <p>Product Manager</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Second Section End -->
+
+<!-- Third Section Start -->
+<section class="scrollify">
+  <div class="home_content home_content_3">
+    <h2 class="heading wow fadeInUp" data-wow-delay="0.2s">Strength of Go</h2>
+    <div id="strenth_go1">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-4 go_strength_col">
+          <div class="card card-bg">
+            <div class="card-header">
+              <div class="d-flex card-cursor" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h5 class="card-title">Convenience</h5>
+                <div class="ml-auto d-block d-lg-none">
+                  <a role="button">
+                    <i class="fas fa-angle-down"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div id="collapseOne" class="collapse show" data-parent="#strenth_go">
+              <div class="card-body text-center">
+                <img src="../../../../assets/images/Convenience.png" alt="" class="wow zoomIn">
+                <div class="card-text wow fadeInLeft">
+                  GoPolicy allow customers to get insurance at the convenience and privacy of their home.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 go_strength_col">
+          <div class="card card-bg">
+            <div class="card-header">
+              <div class="d-flex card-cursor" data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <h5 class="card-title">Instant & Secure</h5>
+                <div class="ml-auto d-block d-lg-none">
+                  <a role="button">
+                    <i class="fas fa-angle-down"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div id="collapseTwo" class="collapse show " data-parent="#strenth_go">
+              <div class="card-body text-center">
+                <img src="../../../../assets/images/Instant_Secure.png" alt="" class="wow zoomIn">
+                <div class="card-text wow zoomIn">
+                  GoPolicy is one of the fastest and most secured way to get your insurance product.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 go_strength_col">
+          <div class="card card-bg">
+            <div class="card-header">
+              <div class="d-flex card-cursor" data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                <h5 class="card-title">Cheaper Premium</h5>
+                <div class="ml-auto d-block d-lg-none">
+                  <a role="button">
+                    <i class="fas fa-angle-down"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div id="collapseThree" class="collapse show" data-parent="#strenth_go">
+              <div class="card-body text-center">
+                <img src="../../../../assets/images/Cheaper_Premium.png" alt="" class="wow zoomIn">
+                <div class="card-text wow fadeInRight">
+                  GoPolicy offering cheaper premium than offline policies.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 go_strength_col">
+          <div class="card card-bg">
+            <div class="card-header">
+              <div class="d-flex card-cursor" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                <h5 class="card-title">Compare</h5>
+                <div class="ml-auto d-block d-lg-none">
+                  <a role="button">
+                    <i class="fas fa-angle-down"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div id="collapseFour" class="collapse show" data-parent="#strenth_go">
+              <div class="card-body text-center">
+                  <img src="../../../../assets/images/compare.png" alt="" class="wow zoomIn">
+                <div class="card-text wow fadeInLeft">
+                  GoPolicy offer you to compare multiple insurance companies to shortlist and get low premium.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 go_strength_col">
+          <div class="card card-bg">
+            <div class="card-header">
+              <div class="d-flex card-cursor" data-toggle="collapse" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                <h5 class="card-title">Higher Sum Assured</h5>
+                <div class="ml-auto d-block d-lg-none">
+                  <a role="button">
+                    <i class="fas fa-angle-down"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div id="collapseFive" class="collapse show" data-parent="#strenth_go">
+              <div class="card-body text-center">
+                  <img src="../../../../assets/images/higher_sum.png" alt="" class="wow zoomIn">
+                <div class="card-text wow zoomIn">
+                    Most of the companies selling insurance products online also offer higher sum assured.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 go_strength_col">
+          <div class="card card-bg">
+            <div class="card-header">
+              <div class="d-flex card-cursor" data-toggle="collapse" href="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                <h5 class="card-title">Online Insurance Claims</h5>
+                <div class="ml-auto d-block d-lg-none">
+                  <a role="button">
+                    <i class="fas fa-angle-down"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div id="collapseSix" class="collapse show" data-parent="#strenth_go">
+              <div class="card-body text-center">
+                  <img src="../../../../assets/images/insurance_claim.png" alt="" class="wow zoomIn">
+                <div class="card-text wow fadeInRight">
+                    Most of the companies also allow their online customers to make their insurance claims online. 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Third Section End -->
+
+<!-- Fourth Section Start -->
+<section class="scrollify">
+  <div class="home_content home_content_4">
+    <h2 class="heading wow fadeInUp" data-wow-delay="0.2s">Partners of Go</h2>
+    <div class="d-flex align-items-center">
+      <div class="row">
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/1.jpg" class="img-responsive wow fadeInLeft">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/2.jpg" class="img-responsive wow fadeInRight">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/3.jpg" class="img-responsive wow fadeInLeft">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/4.jpg" class="img-responsive wow fadeInRight">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/5.jpg" class="img-responsive wow fadeInLeft">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/6.jpg" class="img-responsive wow fadeInRight">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/7.jpg" class="img-responsive wow fadeInLeft">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/8.jpg" class="img-responsive wow fadeInRight">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/9.jpg" class="img-responsive wow fadeInLeft">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/10.jpg" class="img-responsive wow fadeInRight">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/11.jpg" class="img-responsive wow fadeInLeft">
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 p-2">
+          <img src="../../assets/images/insurer/12.jpg" class="img-responsive wow fadeInRight">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Fourth Section End -->
+
+<!-- Footer Section Start -->
+<section class="footer-end">
+  <footer class="footer pt-3 ">
+    <div class="container footer_container">
+      <div class="row footer_first mb-3">
+        <div class="col-12 col-sm-6 col-md-3 wow animated bounceInDown d-none d-lg-block">
+          <h3>Insurance</h3>
+          <ul>
+            <li>
+              <a href="#">Health Insurance </a>
+            </li>
+            <li>
+              <a href="#">Motor Insurance</a>
+            </li>
+            <li>
+              <a href="#">Home Insurance</a>
+            </li>
+            <li>
+              <a href="#">Travel Insurance</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 wow animated bounceInDown d-none d-lg-block">
+          <h3>Motor Insurance</h3>
+          <ul>
+            <li>
+              <a href="#">Car Insurance</a>
+            </li>
+            <li>
+              <a href="#">Two Wheeler Insurance</a>
+            </li>
+            <li>
+              <a href="#">GCV Insurance</a>
+            </li>
+            <li>
+              <a href="#">PCV Insurance</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 wow animated bounceInDown d-none d-lg-block">
+          <h3>Company</h3>
+          <ul>
+            <li>
+              <a href="#">Home </a>
+            </li>
+            <li>
+              <a href="#">About Us</a>
+            </li>
+            <li>
+              <a href="#">Careers</a>
+            </li>
+            <li>
+              <a href="#"> Contact Us</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3 wow animated bounceInDown footer-addr">
+          <h3>Address</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              Meerlan Tower" 3rd Floor,
+              <br>&nbsp;&nbsp;&nbsp;&nbsp; Plot No: 33,Hanumantha Road,
+              <br>&nbsp;&nbsp;&nbsp;&nbsp; Balaji Nagar,Royapettah,
+              <br>&nbsp;&nbsp;&nbsp;&nbsp; Chennai - 600014
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              Email: fasoftwares@fasoftwares.com
+            </li>
+            <li>
+              <i class="fa fa-phone fa-phone-rotate "></i>
+              Phone: 044 4860 2200
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row footer_second">
+        <div class="col-md-12 text-center">
+          <ul class="social_icons">
+            <li class="wow animated zoomIn slower">
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="wow animated zoomIn slower">
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="wow animated zoomIn slower">
+              <a href="#">
+                <i class="fab fa-google-plus-g"></i>
+              </a>
+            </li>
+            <li class="wow animated zoomIn slower">
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <p class="text-center footer_para">The reproduction, distribution, display, or transmission of the content is strictly prohibited, unless authorized
+          by Gopolicy.com. All other company & product names may be trademarks of the respective companies with which they
+          are associated.
+        </p>
+      </div>
+    </div>
+  </footer>
+</section>
+<button (click)="topFunction()" id="goTop">
+  <i class="fas fa-angle-up"></i>
+</button>
+<!-- Footer Section End -->
+
+<!-- Modal First Start-->

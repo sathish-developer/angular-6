@@ -1,0 +1,312 @@
+<div class="container-fluid d-block mt-3">
+  <div class="row">
+    <div class="col-12 col-md-3">
+      <app-twoWheeler-insurer-details></app-twoWheeler-insurer-details>
+    </div>
+    <div class="col-12 col-md-9">
+      <app-twoWheeler-details></app-twoWheeler-details>
+    </div>
+
+  </div>
+  <div class="row customer_info_block wow animated fadeInUp slower2 customer_info_animation_1">
+    <div class="col-12 col-md-12 mt-3">
+
+
+      <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button> -->
+
+      <form [formGroup]="formGroup" class="customer_info">
+        <mat-horizontal-stepper class="justify-content-center" #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray"
+          [linear]="true">
+          <ng-template matStepperIcon="edit">
+            <mat-icon>done</mat-icon>
+          </ng-template>
+
+          <!-- <ng-template matStepperIcon="edit">
+      <mat-icon>done</mat-icon>
+    </ng-template> -->
+
+
+          <!-- Proposer Details -->
+          <mat-step label="Proposer" formGroupName="0" [stepControl]="formArray?.get([0])">
+
+            <!-- <ng-template matStepLabel>Proposer</ng-template> -->
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-digital-tachograph matPrerfix"></i>
+              </span>
+              <!-- <mat-label>Aadhaard Number</mat-label> -->
+              <input matInput formControlName="firstNameFormCtrl" placeholder="Aadhaard Number" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="far fa-user"></i>
+              </span>
+              <mat-label>First name</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="far fa-user"></i>
+              </span>
+              <mat-label>Last name</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="far fa-calendar-alt"></i>
+              </span>
+              <mat-label>Date Of Birth</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-map-marker"></i>
+              </span>
+              <mat-label>Address #1</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-map-marker"></i>
+              </span>
+              <mat-label>Address #2</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-map-marked"></i>
+              </span>
+              <mat-label>City</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-map-signs"></i>
+              </span>
+              <mat-label>State</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-road"></i>
+              </span>
+              <mat-label>Area</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-map-pin"></i>
+              </span>
+              <mat-label>Pincode</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-mobile-alt"></i>
+              </span>
+              <mat-label>Mobile</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <span matSuffix>
+                <i class="fas fa-envelope"></i>
+              </span>
+              <mat-label>Email ID</mat-label>
+              <input matInput formControlName="lastNameFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-stroked-button color="primary" matStepperNext class="float-right">Next</button>
+            </div>
+          </mat-step>
+
+          <!-- Vehicle Details -->
+          <mat-step label="Vehicle" formGroupName="1" [stepControl]="formArray?.get([1])">
+            <!-- <ng-template matStepLabel>Vehicle</ng-template> -->
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Registration Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Engine number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Chassis Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Insurer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Policy Numbaer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-stroked-button color="primary" matStepperPrevious class="float-left">Back</button>
+              <button mat-stroked-button color="primary" matStepperNext class="float-right">Next</button>
+            </div>
+          </mat-step>
+
+
+          <!-- Nominee Details -->
+          <mat-step label="Nominee" formGroupName="1" [stepControl]="formArray?.get([2])">
+            <!-- <ng-template matStepLabel>Nominee</ng-template> -->
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Registration Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Engine number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Chassis Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Insurer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Policy Numbaer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-stroked-button color="primary" matStepperPrevious class="float-left">Back</button>
+              <button mat-stroked-button color="primary" matStepperNext class="float-right">Next</button>
+            </div>
+          </mat-step>
+
+
+          <!-- Inspection Details -->
+          <mat-step label="Inspection" formGroupName="1" [stepControl]="formArray?.get([3])">
+            <!-- <ng-template matStepLabel>Inspection</ng-template> -->
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Registration Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Engine number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Chassis Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Insurer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Policy Numbaer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-stroked-button color="primary" matStepperPrevious class="float-left">Back</button>
+              <button tyupe="button" matStepperNext mat-stroked-button color="primary" class="float-right">Next</button>
+            </div>
+          </mat-step>
+
+
+          <!-- Document Details -->
+          <mat-step label="Document" formGroupName="1" [stepControl]="formArray?.get([4])">
+            <!-- <ng-template matStepLabel>Inspection</ng-template> -->
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Registration Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Engine number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Chassis Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Insurer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Policy Numbaer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-stroked-button color="primary" matStepperPrevious class="float-left">Back</button>
+              <button tyupe="button" matStepperNext mat-stroked-button color="primary" class="float-right">Next</button>
+            </div>
+          </mat-step>
+
+          <!-- Online Details -->
+          <mat-step label="Online" formGroupName="1" [stepControl]="formArray?.get([3])">
+            <!-- <ng-template matStepLabel>Inspection</ng-template> -->
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Registration Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Engine number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Chassis Number</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Insurer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-md-4">
+              <mat-label>Previous Policy Numbaer</mat-label>
+              <input matInput formControlName="emailFormCtrl" required>
+              <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <div>
+              <button mat-stroked-button color="primary" matStepperPrevious class="float-left">Back</button>
+              <button tyupe="button" matStepperNext mat-stroked-button color="primary" (click)="gotoSummaryDetails()" class="float-right">Done</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </form>
+    </div>
+  </div>
+</div>

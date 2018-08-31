@@ -1,0 +1,44 @@
+import { MaterialModule } from './../../Common/Modules/material/material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '../../../../node_modules/@angular/router';
+import { CarPremiumComponent, CarPremiumCompareInsurerDialog, CarPremiumBreakupDialog, CarPremiumIdvDialog } from './Components/car-premium/car-premium.component';
+import { carroute } from "./car.routing";
+import { FormsModule, ReactiveFormsModule } from '../../../../node_modules/@angular/forms';
+import { CarRegistrationComponent } from './Components/car-registration/car-registration.component';
+import { CarCustomerDetailsComponent } from '../../Vehicles/Car/Components/car-customer-details/car-customer-details.component';
+import { CarDetailsComponent } from '../../Vehicles/Car/Components/car-details/car-details.component';
+import { CarInsurerDetailsComponent } from '../../Vehicles/Car/Components/car-insurer-details/car-insurer-details.component';
+import { CarSummaryDetailsComponent } from '../../Vehicles/Car/Components/car-summary-details/car-summary-details.component';
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forChild(carroute),
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MaterialModule
+  ],
+  exports: [RouterModule],
+  declarations: [
+    CarPremiumComponent, 
+    CarRegistrationComponent,
+    CarPremiumIdvDialog,
+    CarPremiumBreakupDialog,
+    CarPremiumCompareInsurerDialog,
+    CarCustomerDetailsComponent,
+    CarDetailsComponent,
+    CarInsurerDetailsComponent,
+    CarSummaryDetailsComponent
+  ],
+  entryComponents: [ 
+    CarPremiumComponent,
+    CarPremiumIdvDialog,
+    CarPremiumBreakupDialog,
+    CarPremiumCompareInsurerDialog
+  ],
+})
+export class CarModule { }

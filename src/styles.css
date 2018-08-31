@@ -1,0 +1,194 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "assets/css/bootstrap.min.css";
+@import "assets/css/animate.css";
+@import "assets/css/owl.carousel.css";
+@import "assets/css/style.css";
+@import "assets/css/responsive-style.css";
+@import "assets/css/premium.css";
+@import "assets/css/style-lg.css";
+@import "assets/css/style-md.css";
+@import "assets/css/style-sm.css";
+@import "assets/css/style-xs.css";
+@import "assets/css/colors.css";
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 52px;
+}
+
+.balloon a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mat-stroked-button {
+  font-family: 'Signika', sans-serif !important;
+  margin-bottom: 4px !important;
+  margin-top: 12px !important;
+}
+.mat-checkbox-inner-container{
+  margin-top: 3px !important;
+}
+.mat-checkbox-layout .mat-checkbox-label {
+  line-height: 24px;
+  white-space: normal;
+  word-break: break-all;
+}
+/* Animation Style */
+
+.slower {
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.slower2 {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.set-bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 0;
+}
+
+.spad {
+  padding-top: 100px;
+  padding-bottom: 90px;
+}
+
+.push-8 {
+  left: 33.333333%;
+}
+
+.pull-3 {
+  right: 66.666667%;
+}
+
+.home_content_2 img {
+  max-width: 100%;
+}
+
+.review-meta-slider {
+  position: relative;
+  width: 300px;
+}
+
+.author-meta {
+  padding: 50px 0 70px;
+  position: relative;
+  text-align: center;
+}
+
+.author-meta:last-child {
+  margin-right: 0;
+}
+
+.author-avatar {
+  width: 80px;
+  height: 80px;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 16px 21px rgba(33, 54, 61, 0.15);
+  box-shadow: 0px 16px 21px rgba(33, 54, 61, 0.15);
+  display: inline-block;
+}
+
+.author-name h4 {
+  color: #20509e;
+  margin: 0;
+  font-weight: 500;
+}
+
+.author-name p {
+  font-size: 15.7px;
+  color: #75849a;
+  line-height: 1.6;
+}
+
+.author-name {
+  position: absolute;
+  width: 280px;
+  left: -50%;
+  bottom: -10px;
+  margin-left: -50px;
+  text-align: center;
+  visibility: hidden;
+}
+
+.center .author-meta {
+  top: -6px;
+}
+
+.center .author-name {
+  visibility: visible;
+}
+
+.center .author-avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.review-text p {
+  font-size: 22px;
+  color: #75849a;
+  line-height: 1.6;
+}
+
+.review-text-slider .owl-nav {
+  padding-top: 15px;
+}
+
+.review-text-slider .owl-prev,
+.review-text-slider .owl-next {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background: #cbd3df;
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  margin-right: 10px;
+  border-radius: 50%;
+  padding-top: 8px;
+}
+
+@media (max-width: 575.98px) {
+  .review-text-slider .owl-nav {
+    padding-top: 0px;
+    text-align: center;
+  }
+  .center .author-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .review-text-slider .owl-nav {
+    padding-top: 0;
+    position: absolute;
+    top: 50%;
+    margin-top: -45px;
+    left: 0;
+    width: 100%;
+  }
+  .review-text-slider .owl-prev {
+    float: left;
+  }
+  .review-text-slider .owl-next {
+    float: right;
+  }
+  .center .author-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}

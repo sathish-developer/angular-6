@@ -1,0 +1,193 @@
+<div class="container-fluid form_first_main px-0 ">
+  <div class="form_content_bg py-5">
+    <div class="row m-0" fxLayout fxLayoutAlign="center" fxLayoutGap="20px" fxLayoutGap.sm="0px" fxLayoutGap.xs="0px">
+      <div class="" fxFlex="90%" fxFlex.gt-xs="80%" fxFlex.gt-sm="30%" fxHide.sm="true" fxHide.xs="true">
+        <mat-card class="form_first_left_content ">
+          <img src="../../assets/images/form_car.png" class="wow animated fadeInDown">
+          <div class="wow animated fadeInUp">
+            <h3 class="title">Car Insurance</h3>
+            <p>
+              <i class="far fa-star"></i>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <p>
+              <i class="far fa-lightbulb"></i>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <p>
+              <i class="far fa-life-ring"></i>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            <p>
+              <i class="far fa-gem"></i>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          </div>
+        </mat-card>
+      </div>
+      <div class=" " fxFlex="90%" fxFlex.gt-xs="80%" fxFlex.gt-sm="50%" class="form_input_content wow animated zoomIn slower2">
+        <mat-card-title class="form_title">Vehicle Details </mat-card-title>
+        <mat-vertical-stepper [linear]="isLinear" #stepper class="pb-3">
+          <mat-step [stepControl]="proposerForm">
+            <form [formGroup]="proposerForm">
+              <ng-template matStepLabel>Registration</ng-template>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Registration No</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>Registration No</mat-label> -->
+                    <input matInput placeholder="Registration No"
+                     formControlName="registrationNo">
+                    <mat-icon matSuffix>business</mat-icon>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Vehicle Registered Of</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>Vechile Registered </mat-label> -->
+
+                    <mat-select placeholder="vehicle Registered Name" formControlName="customerType">
+                      <mat-option *ngFor="let registeredName of registeredNames" [value]="registeredName.viewValue">
+                        {{registeredName.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Manufacturing Year</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>Manufacturing Year</mat-label> -->
+                    <mat-select placeholder="Vechile Registered Name" formControlName="yearOfMfg" >
+                      <mat-option *ngFor="let manufacturing of manufacturings" [value]="manufacturing.value">
+                        {{manufacturing.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Registration Date</mat-label>
+                  <mat-form-field appearance="outline" class="example-container" (click)="RegistrationDate.open()">
+                    <!-- <mat-label>Choose a date</mat-label> -->
+                    <input matInput [matDatepicker]="RegistrationDate"  formControlName="registrationDate"  placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="RegistrationDate"></mat-datepicker-toggle>
+                    <mat-datepicker #RegistrationDate></mat-datepicker>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Make Model</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>Select</mat-label> -->
+                    <input type="text" placeholder="Select" aria-label="Number"  formControlName="makeName"   matInput  [matAutocomplete]="auto2">
+                    <mat-autocomplete #auto2="matAutocomplete">
+                      <mat-option *ngFor="let option of makeDropDownList" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix class="select_arrow">arrow_drop_down</mat-icon>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Sub Model</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>Select</mat-label> -->
+                    <input type="text" placeholder="Select" aria-label="Number" matInput   formControlName="subModelName" [matAutocomplete]="auto1">
+                    <mat-autocomplete #auto1="matAutocomplete">
+                      <mat-option *ngFor="let option of subModelArrayList" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-icon matSuffix class="select_arrow">arrow_drop_down</mat-icon>
+                    <mat-error>This field is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div>
+                <button mat-stroked-button color="primary" (click)="goForwardRegistration(stepper)" class="float-right">Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step  [stepControl]="registrationForm">
+            <form [formGroup]="registrationForm">
+              <ng-template matStepLabel>Registration</ng-template>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">RTO</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>RTO</mat-label> -->
+                    <input matInput placeholder="RTO" formControlName="rtoName">
+                    <mat-icon matSuffix>commute</mat-icon>
+                    <mat-error>This field is required</mat-error>
+                  
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Previous Policy Type</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>Previous Policy Type</mat-label> -->
+                    <mat-select placeholder="Previous Policy Type"  formControlName="prevPolicyType" >
+                      <mat-option *ngFor="let previousPolicy of previousPolicys" [value]="previousPolicy.value">
+                        {{previousPolicy.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Previous Insurance Company</mat-label>
+                  <mat-form-field appearance="outline" class="example-container">
+                    <!-- <mat-label>Previous Insurance Company</mat-label> -->
+                    <mat-select placeholder="Previous Policy Type"  formControlName="prevPolicyInsurerName">
+                      <mat-option *ngFor="let previousInsuranceCompany of previousInsuranceCompanys" [value]="previousInsuranceCompany.value">
+                        {{previousInsuranceCompany.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Previous Policy Expiry Date</mat-label>
+                  <mat-form-field appearance="outline" class="example-container" (click)="prevPolicyExp.open()">
+                    <!-- <mat-label>Choose a date</mat-label> -->
+                    <input matInput [matDatepicker]="prevPolicyExp"  formControlName="prevPolicyExp"  placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="prevPolicyExp"></mat-datepicker-toggle>
+                    <mat-datepicker #prevPolicyExp></mat-datepicker>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Policy Start Date</mat-label>
+                  <mat-form-field appearance="outline" class="example-container" (click)="policyStartDate.open()">
+                    <!-- <mat-label>Choose a date</mat-label> -->
+                    <input matInput [matDatepicker]="policyStartDate"  formControlName="policyStartDate"   placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="policyStartDate"></mat-datepicker-toggle>
+                    <mat-datepicker #policyStartDate></mat-datepicker>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                  <mat-label class="label_title">Policy End Date</mat-label>
+                  <mat-form-field appearance="outline" class="example-container" (click)="expiryDate.open()">
+                    <!-- <mat-label>Choose a date</mat-label> -->
+                    <input matInput [matDatepicker]="expiryDate" formControlName="expiryDate"    placeholder="Choose a date">
+                    <mat-datepicker-toggle matSuffix [for]="expiryDate"></mat-datepicker-toggle>
+                    <mat-datepicker #expiryDate></mat-datepicker>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div>
+                <button mat-stroked-button color="primary" matStepperPrevious class="float-left">Back</button>
+                <button type="button" mat-stroked-button color="primary" class="float-right" (click)="goForwardPremium(stepper)">DONE</button>
+              </div>
+            </form>
+          </mat-step>
+        </mat-vertical-stepper>
+      </div>
+    </div>
+  </div>
+</div>

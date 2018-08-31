@@ -1,0 +1,13 @@
+.mat-step-label,
+.mat-stepper-vertical,
+.mat-form-field {
+  font-family: 'Signika', sans-serif !important;
+}
+
+.mat-step {
+  margin-bottom: 10px
+}
+
+.customer_info_animation_1 {
+  animation-delay: 1.5s;
+}

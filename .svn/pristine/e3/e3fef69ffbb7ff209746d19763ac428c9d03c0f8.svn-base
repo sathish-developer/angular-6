@@ -1,0 +1,27 @@
+<div class="row productDetailsSide wow animated fadeInRight">
+  <h5 class="w-100 text-center">Vehicle Details</h5>
+  <div class="col-12 col-sm-6 col-md-4">
+    <p>Car</p>
+    <p>FORD ECOSPORT 1.5D PLATNIUM</p>
+  </div>
+  <div class="col-6 col-sm-6 col-md-4">
+    <p>Fuel Type</p>
+    <p class="">Diesel</p>
+  </div>
+  <div class="col-6 col-sm-6 col-md-4">
+    <p>Enging &amp; Seater</p>
+    <p class="">1498CC &amp; 5 Seater</p>
+  </div>
+  <div class="col-6 col-sm-6 col-md-4">
+    <p>Manufacturing Year</p>
+    <p class="">2017</p>
+  </div>
+  <div class="col-6 col-sm-6 col-md-4">
+    <p>Registration Date</p>
+    <p class="">10/08/2012</p>
+  </div>
+  <div class="col-6 col-sm-6 col-md-4">
+    <p>Registration Number</p>
+    <p class="">Tn 72 RR 8845</p>
+  </div>
+</div>

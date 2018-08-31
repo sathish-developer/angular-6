@@ -1,0 +1,32 @@
+.mat-step-label,
+.mat-stepper-vertical,
+.mat-form-field {
+    font-family: 'Signika', sans-serif !important;
+}
+
+.mat-step {
+    margin-bottom: 10px
+}
+
+.customer_info_animation_1 {
+    animation-delay: 1.5s;
+}
+
+.customer_detailes_subheader {
+    font-size: 20px;
+    color: #fd5b60;
+    text-align: center;
+    margin-bottom: 0px;
+    font-family: 'Signika', sans-serif !important;
+}
+
+.customer_detail_checkbox {
+    width: 100%;
+    margin-bottom:0px;
+    padding-left: 15px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.button_c {
+  background-color: rgb(241, 125, 61)!important;
+}

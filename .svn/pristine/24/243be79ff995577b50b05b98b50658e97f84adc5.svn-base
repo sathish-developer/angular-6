@@ -1,0 +1,437 @@
+
+body {
+    font-family: 'Signika', sans-serif !important;
+    overflow-x: hidden !important;
+
+}
+.mat-stepper-horizontal, .mat-stepper-vertical, input, ::-webkit-input-placeholder, ::-moz-input-placeholder,label,button{
+    font-family: 'Signika', sans-serif !important;
+}
+.mat-expansion-panel-header,.mat-expansion-panel-content {
+    font-family: 'Signika', sans-serif !important;
+    font-weight: 600 ;
+}
+
+.customer_info_block{
+    max-width: 1000px;
+    margin:20px auto;
+    border:1px solid #ddd;
+    max-width: 1000px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    /* box-shadow: 4px 4px 1px 0px rgba(0, 0, 0, 0.08), -4px -8px 1px 0px rgba(0, 0, 0, 0.04); */
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(156, 156, 155, 0.4);
+}
+.customer_info .mat-horizontal-stepper-header .mat-step-icon, .customer_info .mat-horizontal-stepper-header .mat-step-icon-not-touched {
+    margin-right: 8px;
+    flex: none;
+    display: none;
+}
+.customer_info .mat-step-header .mat-step-label{
+    font-size: 14px;
+}
+.customer_info .mat-horizontal-stepper-header-container{
+    flex-wrap: wrap;
+    justify-content: center!important;
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header{
+    font-family: 'Signika', sans-serif !important;
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header:before{
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 400; 
+    padding-right: 15px;
+    color: #ffffff;
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header:nth-child(1):before{ 
+    content: "\f007";
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header:nth-child(3):before{ 
+    content: "\f1cd";
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header:nth-child(5):before{ 
+    content: "\f2bd";
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header:nth-child(7):before{ 
+    content: "\f06e";
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header:nth-child(9):before{ 
+    content: "\f15c";
+}
+.customer_info .mat-horizontal-stepper-header-container .mat-step-header:nth-child(11):before{ 
+    content: "\f3d1";
+}
+.customer_info .mat-horizontal-content-container {
+    overflow: hidden;
+    padding: 24px 24px 24px 24px;
+}
+.customer_info .mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 15px;
+    font-weight: 700;
+}
+.customer_info .mat-step-header .mat-step-label, .mat-step-header .mat-step-optional {
+    color: rgba(255, 255, 255, 0.6);
+}
+.customer_info .mat-step-header{    
+    max-height: 40px;
+    margin: 2px;
+    max-width: 100px;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #fff;
+}
+.customer_info .mat-step-header:after{
+    position: absolute;
+    /* content: ""; */
+    bottom: 0px;
+    left: 50%;
+    z-index: 100;
+    border-bottom: 6px solid #ffffff;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}
+.customer_info .mat-step-header:hover{
+    background-color: #80c5f3;
+    /* border-left: 4px solid #45f745; */
+}
+.customer_info .mat-stepper-horizontal-line {
+    border-top-color: rgba(0,0,0,0.0);
+    display: none;
+}
+.customer_info .mat-vertical-content {
+    padding: 16px 24px 24px 24px !important;
+}
+.customer_info .mat-step{
+    margin-bottom: 10px;
+}
+.customer_info .mat-step-label-selected {
+    font-size: 14px;
+    font-weight: 500;
+    /* background-color: #ddd; */
+    padding: 0px;
+    /* border-right: 5px solid #0033cc; */
+    width: 100%;
+    /* border-radius: 4px; */
+}
+.customer_info .mat-step-label-selected:after{
+    position: absolute;
+    content: "";
+    top: 0;
+    /* bottom: 0px; */
+    right: 0%;
+    z-index: 100;
+    border-bottom: 12px solid #f78501;
+    /* border-right: 10px solid transparent; */
+    border-left: 12px solid transparent;
+}
+
+/* .mat-form-field-empty.mat-form-field-label{
+    color:red;
+ } */
+ .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+     color:#4202ff;
+ }
+button:focus{
+    outline: none;
+}
+.form_first_main .mat-select-arrow-wrapper .mat-select-arrow {
+    border-left: 7px solid transparent!important;
+    border-right: 7px solid transparent!important;
+    border-top: 7px solid!important;
+}
+
+.form_first_main .form_first_main .mat-step-header .mat-step-icon {
+    background-color: #6e4595;
+    color: #fff;
+}
+.form_first_main .mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgb(63, 81, 181);
+    font-weight: bold;
+}
+.form_first_main .mat-form-field-infix {
+    border-top: 0.3em solid transparent;
+}
+.form_first_main .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: .50em!important;
+}
+
+.form_first_main .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: rgba(124, 124, 124, 0.87);
+}
+.form_first_main .mat-step-header.cdk-keyboard-focused, .form_first_main .mat-step-header.cdk-program-focused,.form_first_main .mat-step-header:hover {
+    background-color: rgba(0,0,0,.04);
+}
+
+
+
+
+
+/* Login style */
+.loginClass .mat-dialog-container {
+    padding: 0px;
+    background: #69696900;
+    border: none;
+    border-bottom: 8px solid #086c97;
+    border-radius: 15px;
+}
+
+
+.loginClass .modal-content {
+    padding: 2.5vw;
+    border: none;
+}
+
+.loginClass .modal-backdrop {
+    background-color: rgba(255, 0, 0, 0);
+}
+
+.loginClass .modal-header .close {
+    padding: 0px 5px;
+    margin: auto;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: rgb(139, 139, 139);
+}
+
+.loginClass .modal-header {
+    padding: 0rem 1rem;
+    display: block;
+    border-bottom: none;
+}
+
+.loginClass .modal-header h5 {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #0091b3;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.loginClass .modal-header h5 i {
+    color: #0091b3;
+}
+
+.loginClass .modal-body {
+    padding: 0px;
+}
+
+.loginClass .login_form_field {
+    margin-bottom: 1.5em;
+    flex-basis: 100%;
+    -webkit-flex-basis: 100%;
+}
+
+.loginClass .login_form_field label {
+    font-size: 14px;
+    color: #0091b3;
+    display: inline-block;
+    font-weight: 500;
+    margin-bottom: 12px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.loginClass .login_form_field label i {
+    font-size: 15px;
+    margin-left: 5px;
+    color: #0091b3;
+    border-radius: 50%;
+    line-height: 1.9;
+    text-align: center;
+}
+
+.loginClass .login_form_field input[type="text"],
+.loginClass .login_form_field input[type="password"] {
+    width: 100%;
+    color: #fff;
+    outline: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    border: none;
+    /* border: 1px solid #000; */
+    background: #0091b3bd;
+    border-radius: 4px;
+    border-radius: 3px;
+    border-radius: 3px;
+}
+.loginClass ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #fff;
+    opacity: 1; /* Firefox */
+}
+
+.loginClass .login_form_field_end {
+    width: 100%;
+    text-align: center;
+}
+
+.loginClass .login_form_field_end ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.loginClass .login_form_field_end ul li {
+    display: inline-block;
+}
+
+.loginClass .login_form_field_end ul li:nth-child(1) {
+    float: left;
+}
+
+.loginClass .login_form_field_end ul li:nth-child(2) {
+    float: right;
+}
+
+.loginClass .login_form_field_end label {
+    font-size: 15px;
+    color: #0091b3;
+    cursor: pointer;
+    position: relative;
+}
+
+.loginClass input.checkbox {
+    background: #0091b3;
+    cursor: pointer;
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: text-bottom;
+    margin-right: 10px;
+}
+
+.loginClass input.checkbox:before {
+    content: "";
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    background: inherit;
+    cursor: pointer;
+}
+
+.loginClass input.checkbox:after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 2px;
+    z-index: 1;
+    width: 1em;
+    height: 1em;
+    border: 2px solid rgba(255, 255, 255, 0);
+    -webkit-transition: .4s ease-in-out;
+    -moz-transition: .4s ease-in-out;
+    -o-transition: .4s ease-in-out;
+    transition: .4s ease-in-out;
+}
+
+.loginClass .anim input.checkbox:checked:after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    height: .4rem;
+    /* border-color: transparent; */
+    border-right-color: transparent;
+    animation: .4s rippling .4s ease;
+    animation-fill-mode: forwards;
+}
+
+.loginClass input.checkbox:checked:after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    height: .4rem;
+    border-color: #fff;
+    border-top-color: transparent;
+    border-right-color: transparent;
+}
+
+.loginClass .login_form_field_end ul li a {
+    color: #0091b3;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.loginClass .modal-footer {
+    border-top: none;
+    padding-bottom: 0px;
+}
+
+.loginClass input[type="submit"] {
+    color: #fff;
+    background: #0091b3;
+    border: none;
+    padding: 7px 0;
+    margin-top: 20px;
+    outline: none;
+    width: 36%;
+    font-size: 16px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    transition: 0.5s all;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.49);
+    margin: auto;
+}
+
+/* Login Style End*/
+
+
+
+
+/* SUMMARY PAGE START*/
+.summary_page .mat-card{
+    font-family: 'Signika', sans-serif!important;
+    padding: 0px;
+    max-height: 300px!important;
+}
+.summary_page_accordion .mat-expanded .mat-expanded .mat-expansion-indicator::after{
+    color: rgb(255, 255, 255)!important;
+}
+.summary_page_accordion .mat-expansion-panel-header:hover .mat-expansion-indicator::after{
+    color: #fff;
+}
+.summary_page_accordion .mat-expansion-panel {
+    background: #fff0;
+    color: rgba(0,0,0,.87);
+}
+.summary_table_row[_ngcontent-c1] {
+    margin: 5px 0px!important;
+}
+.summary_page_accordion .mat-expanded .mat-expansion-panel-body {
+    border-bottom: 1px solid #d9d9d9a8!important;
+}
+
+/* SUMMARY PAGE END*/
+/* CUSTOMER DETAILS START*/
+/* CAR CUSTOMER */
+.customer_detail_checkbox .mat-checkbox-inner-container {    
+    height: 16px;
+    width: 16px;
+  }
+  .customer_detail_checkbox .mat-checkbox-checked.mat-accent .mat-checkbox-background, .customer_detail_checkbox .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #ff5151;
+}
+/* CAR CUSTOMER */
+
+/* CUSTOMER DETAILS END*/
+/* COMMAN STYLE START*/
+
+.mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: translateY(10%)!important;
+}
+
+/* COMMAN STYLE END*/
+
+
+

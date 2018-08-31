@@ -1,0 +1,26 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '../../../node_modules/@angular/router';
+
+@Component({
+  selector: 'app-landing-page',
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.css']
+})
+export class LandingPageComponent implements OnInit {
+
+  constructor(private router: Router) { }
+
+  ngOnInit() {
+  }
+
+  getproduct(event) {
+    console.log(event);
+
+    if (event == 'car') {
+      this.router.navigateByUrl("/car");
+    }
+    else if (event == 'health') {
+      this.router.navigateByUrl("/car");
+    }
+  }
+}

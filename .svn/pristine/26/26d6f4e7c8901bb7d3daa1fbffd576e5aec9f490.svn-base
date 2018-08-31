@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "assets/css/bootstrap.min.css";
+@import "assets/css/animate.css";
+@import "assets/css/style.css";
+@import "assets/css/responsive-style.css";
+@import "assets/css/premium.css";
+
+
+.wrapper{
+    position: relative;
+    width: 100%;
+    padding-top: 52px;
+}
+
+.balloon a:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+.mat-stroked-button {
+    font-family: 'Signika', sans-serif !important;
+    margin-bottom: 4px !important;
+    margin-top: 12px !important;
+}
+
+
+/* Animation Style */
+.slower{
+    -webkit-animation-duration: 4s;
+    animation-duration: 4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.slower2{
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}

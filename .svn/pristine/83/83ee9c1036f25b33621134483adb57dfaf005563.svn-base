@@ -1,0 +1,466 @@
+import { CoverDetails, InsurerDetail, carQuoteRequest } from './../car-models/car.quote.request.model';
+import { PrefferedInsurerRequest } from '../car-models/car.prefferedInsurer.request.model';
+import { LocalStorageService } from '../../../../commonservices/common.storage.service';
+import { CommonService } from '../../../../commonservices/common.service';
+import { URLCONSTANT } from '../../../../URLConstants/URL_Constant';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { CarPrefferedInsurerResponse } from '../car-models/car.prefferedInsurer.response.model';
+import { BehaviorSubject } from '../../../../../../node_modules/rxjs';
+
+
+
+
+
+
+
+
+/**
+ * 
+ * @author sathish kumar
+ * 
+ * **/
+
+@Injectable()
+export class CarPremiumService {
+  result = [];
+  finalResult = [];
+  premiumResult =[];
+
+  testDataResult=new BehaviorSubject<any[]>([]);
+
+  additionalcoverlist = [];
+  addoncoverlist = [];
+  discountcoverlist = [];
+  PrefferedInsurerRequest: Array<PrefferedInsurerRequest> = [];
+
+  constructor(private http: HttpClient,
+    private common: CommonService, private storage: LocalStorageService) {
+    console.log("car premium service injected");
+
+
+  }
+
+  callPrefferedInsurer(callback?) {
+    this.getPrefferedInsurerList().then((res: any) => {
+      this.storage.setItem("prefferedInsurerList", res.preferredInsurers);
+      let quoteRequest = JSON.parse(localStorage.getItem("carQuoteRequest"));
+      //let quoteRequest = {"CustomerDetails":{"firstName":"","lastName":"","mobileNo":"","email":"","customerType":"CUSTOMER_INDIVIDUAL","aadharNumber":"--","dateOfBirth":"","address1":"","address2":"","address3":"","areaCode":"","areaName":"","cityCode":"","cityName":"","stateName":"","stateCode":"","pinCode":""},"QuotationData":{"quoteNo":"QPCC0000003583","lineOfBusiness":"MOTOR","subLine":"PRIVATE CAR","productCode":"PCC","productName":"COMPREHENSIVE","businessType":"RollOver","policyStartDate":"13/09/2018","expiryDate":"12/09/2019","isVipPolicy":"N","channelType":"POT","branchName":"","branchCode":"","quoteStatus":"QUOTE","insurerCode":"105","insurerName":"","intgQuotationNo":"","policyTenure":"1","PreviousPolicyDetails":{"prevPolicyNo":"","prevPolicyExp":"12/09/2018","prevPolicyNcb":"20","prevPolicyInsurerCode":"104","prevPolicyInsurerName":"BAJAJ ALLIANZ GENERAL INSURANCE CO. LTD.","isPrevPolicyClaim":"N","prevPolicyType":"COMPREHENSIVE"}},"VehicleDetails":{"engineNo":"","chassisNo":"","registrationNo":"MH-01-FD-8979","yearOfMfg":2017,"registrationDate":"01/08/2017","makeCode":"RLT","modelCode":"MD000335","makeName":"RENAULT","modelName":"KWID","subModelName":"RXL","subModelCode":"SM00003189","engineCC":"799","fuelType":"PETROL","rtoCode":"MH01","rtoName":"MUMBAI","actualIdv":0,"vehicleAge":1.12,"seatingCapacity":"5","cubicCapacity":"799","zone":"ZONE A","currentNCB":"25","isInBuilt":"false","isCarOwnerChanged":"N","rtoNo":"MH01","rtoRegistration":"MUMBAI","showRoomPrice":0,"carrierType":"","noOfTraillers":"","trailerIdvDto":[]},"CoverDetails":[],"InsurerDetails":[{"insurerCode":"105","insurerName":"","idv":0,"minIdv":0,"maxIdv":0,"originalIdv":0,"planName":""}]};
+      return callback(this.filterPremium(quoteRequest, res.preferredInsurers, (data) => {
+        return data;
+      }));
+    });
+  }
+
+  /**
+   * this method is used to get Preffered Insurer List 
+   * **/
+  getPrefferedInsurerCalc() {
+    return this.http.get(URLCONSTANT.GET_PREFFERED_INSURER_URL).toPromise();
+  }
+
+  /**
+  * this method is used to get SingleInsurer calculation data
+  * **/
+  getSingleInsurerCalcData(data) {
+    return this.http.post(URLCONSTANT.SINGLE_INSURER_CALC_URL, data).toPromise();
+  }
+
+  /**
+   * this method is used to get all coverDetails
+   * **/
+  getCoverageData() {
+    return this.http.post(URLCONSTANT.GET_COVERAGES_URL, '');
+  }
+
+
+  /**
+  * this method is used to get preffered Insurer to return to component
+  * **/
+  getPrefferedInsurerList() {
+    let data;
+    let promise = new Promise((resolve, reject) => {
+      data = this.getPrefferedInsurer();
+      resolve(data);
+    }).catch((error) => {
+      console.log(error);
+    });
+    return promise;
+  }
+
+
+  /**
+  * this method is used to call the coverage list by product code
+  * this is general for all vehicle product
+  * 
+  * **/
+  getCoverageList(productCode, callback?) {
+    this.getCoverageData().subscribe((coverages) => {
+      this.filterCoverageListByProductCode(coverages, productCode, (addon, discount, additional) => {
+        return callback(addon, discount, additional);
+      });
+    });
+  }
+
+
+  /**
+   * this method is used to filter the coverage list by product code
+   * this is general for all vehicle product
+   * 
+   * **/
+  filterCoverageListByProductCode(coverageData, productCode, callback?) {
+    let addonList = [];
+    let discountList = [];
+    let additionalList = [];
+    let coverageObjectList = [];
+    let coverages = coverageData.coverageList;
+    //console.log("TEST"+JSON.stringify(coverages));
+    for (let key in coverages) {
+      if (key == productCode) {
+        coverageObjectList = coverages[productCode];
+        for (let j = 0; j < coverageObjectList.length; j++) {
+          let CoverageObject = coverageObjectList[j];
+          if (CoverageObject.coverType == 'ADDON') {
+            addonList.push(CoverageObject);
+          }
+          if (CoverageObject.coverType == 'DISCOUNTS') {
+            discountList.push(CoverageObject);
+          }
+          if (CoverageObject.coverType == 'ADDITIONAL') {
+            additionalList.push(CoverageObject);
+          }
+        }
+      }
+    }
+    return callback(addonList, discountList, additionalList);
+  }
+
+
+  /**
+   * this method is used to filter generate request for single insurer calculation based on preffered insurer list(that is already taken)
+   * **/
+  // filterPremium(prefferedInsurerList) {
+  //     let prefferedInsurer = prefferedInsurerList.preferredInsurers;
+  //     let request;
+  //     for (let i = 0; i < prefferedInsurer.length; i++) {
+  //         let preferredInsurer: CarPrefferedInsurerRequest = prefferedInsurer[i];
+  //         request = { CustomerDetails: {}, VehicleDetails: {}, QuotationData: {}, CoverDetails: {}, } as carQuoteRequest;
+  //         request.InsurerDetails = [];
+  //         const insurerDetailsObj = {
+  //             "insurerCode": preferredInsurer.insurerCode,
+  //             "insurerName": "",
+  //             "idv": 0, "minIdv": 0,
+  //             "maxIdv": 0,
+  //             "originalIdv": 0,
+  //             "planName": ""
+  //         };
+  //         request.InsurerDetails.push(insurerDetailsObj);
+  //     }
+  //     return request;
+  // }
+
+
+
+  /**
+   * this method is used to filter generate request for 
+   * single insurer calculation based on preffered insurer list(that is already taken)
+   * **/
+
+  filterPremium(quoteRequest, prefferedInsurerList, callback?) {
+    let prefferedInsurer = prefferedInsurerList;
+    for (let i = 0; i < prefferedInsurer.length; i++) {
+      let preferredInsurer: CarPrefferedInsurerResponse = prefferedInsurer[i];
+      this.getBundleDetailsList(quoteRequest, preferredInsurer, 'PCC', 'N', (bundleResponse) => {
+        let promise = new Promise((resolve, reject) => {
+          resolve(this.getSingleInsurerCalcData(bundleResponse));
+        }).then((response) => {
+          this.assignPremium(prefferedInsurerList, response, (data) => {
+            this.premiumResult = [];
+            this.premiumResult = data;
+            return callback(this.premiumResult);
+          });
+        }).catch((error) => {
+          console.log(error);
+          //reject(error);
+        });
+      });
+    }
+    return callback(this.premiumResult);
+  }
+
+
+  /**
+ * this method is used assign the filtered premium to the array list for 
+ * to render in user view
+ * **/
+  assignPremium(prefferedInsurerList, response, callback?) {
+    //this.finalResult=[];
+    if (response != null) {
+      let insurerList = prefferedInsurerList;
+      let premium = response.premium;
+      //let premiumInsurerCode = {} as any;
+      let insurerCode = '0' as string;
+      for (let i = 0; i < insurerList.length; i++) {
+        insurerCode = insurerList[i].insurerCode;
+        for (let key in premium) {
+          if (key == insurerCode) {
+            this.result = premium[key];
+            this.result["imagePath"] = insurerList[i].imagePath;
+            this.finalResult.push(this.result);
+            this.testDataResult.next(this.testDataResult.getValue().concat(this.result));
+          }
+        }
+      }
+    }
+    return callback(this.finalResult);
+  }
+
+
+  /**
+   * this method is used to simply return the final result arraylist which has the value
+   * **/
+  getFinalPremium(callback?) {
+    console.log("in service " + this.finalResult);
+    return callback(this.finalResult);
+  }
+
+  /**
+  * this method is used to call prefered insurer
+  * **/
+  getPrefferedInsurer() {
+    let prefferedInsurerList = this.http.post(URLCONSTANT.GET_PREFFERED_INSURER_URL, this.storage.getItem("prefferedInsurerRequest")).toPromise();
+    return prefferedInsurerList;
+  }
+
+
+
+
+  /**
+    * this method is used to extract fueltype from submodellist 
+    * **/
+  getDieselFromSubModelList(userSelectedCarDetails, callback?) {
+    let fuelType = '';
+    let submodelList = this.storage.getItem("allSubModel");
+    for (let i = 0; i < submodelList.vehicleDetailsBySublineCode.length; i++) {
+      if (userSelectedCarDetails.VehicleDetails.makeName == submodelList.vehicleDetailsBySublineCode[i].makeName.split(',')[0]) {
+        fuelType = submodelList.vehicleDetailsBySublineCode[i].fuelType;
+      }
+    }
+    return callback(fuelType);
+  }
+
+
+  RecalculatePremium(callback?) {
+    let result = [];
+    let quoteRequest = JSON.parse(localStorage.getItem("carQuoteRequest"));
+    //let quoteRequest={"CustomerDetails":{"firstName":"","lastName":"","mobileNo":"","email":"","customerType":"CUSTOMER_INDIVIDUAL","aadharNumber":"--","dateOfBirth":"","address1":"","address2":"","address3":"","areaCode":"","areaName":"","cityCode":"","cityName":"","stateName":"","stateCode":"","pinCode":""},"QuotationData":{"quoteNo":"QPCC0000003583","lineOfBusiness":"MOTOR","subLine":"PRIVATE CAR","productCode":"PCC","productName":"COMPREHENSIVE","businessType":"RollOver","policyStartDate":"13/09/2018","expiryDate":"12/09/2019","isVipPolicy":"N","channelType":"POT","branchName":"","branchCode":"","quoteStatus":"QUOTE","insurerCode":"105","insurerName":"","intgQuotationNo":"","policyTenure":"1","PreviousPolicyDetails":{"prevPolicyNo":"","prevPolicyExp":"12/09/2018","prevPolicyNcb":"20","prevPolicyInsurerCode":"104","prevPolicyInsurerName":"BAJAJ ALLIANZ GENERAL INSURANCE CO. LTD.","isPrevPolicyClaim":"N","prevPolicyType":"COMPREHENSIVE"}},"VehicleDetails":{"engineNo":"","chassisNo":"","registrationNo":"MH-01-FD-8979","yearOfMfg":2017,"registrationDate":"01/08/2017","makeCode":"RLT","modelCode":"MD000335","makeName":"RENAULT","modelName":"KWID","subModelName":"RXL","subModelCode":"SM00003189","engineCC":"799","fuelType":"PETROL","rtoCode":"MH01","rtoName":"MUMBAI","actualIdv":0,"vehicleAge":1.12,"seatingCapacity":"5","cubicCapacity":"799","zone":"ZONE A","currentNCB":"25","isInBuilt":"false","isCarOwnerChanged":"N","rtoNo":"MH01","rtoRegistration":"MUMBAI","showRoomPrice":0,"carrierType":"","noOfTraillers":"","trailerIdvDto":[]},"CoverDetails":[],"InsurerDetails":[{"insurerCode":"105","insurerName":"","idv":0,"minIdv":0,"maxIdv":0,"originalIdv":0,"planName":""}]};
+    //let quoteRequest = {"CustomerDetails":{"firstName":"","lastName":"","mobileNo":"","email":"","customerType":"CUSTOMER_INDIVIDUAL","aadharNumber":"--","dateOfBirth":"","address1":"","address2":"","address3":"","areaCode":"","areaName":"","cityCode":"","cityName":"","stateName":"","stateCode":"","pinCode":""},"QuotationData":{"quoteNo":"QPCC0000003451","lineOfBusiness":"MOTOR","subLine":"PRIVATE CAR","productCode":"PCC","productName":"COMPREHENSIVE","businessType":"NEW BUSINESS","policyStartDate":"09/08/2018","expiryDate":"08/08/2019","isVipPolicy":"N","channelType":"POT","branchName":"","branchCode":"","quoteStatus":"QUOTE","insurerCode":"128","insurerName":"","intgQuotationNo":"Q/H/3121/0000043824","PreviousPolicyDetails":{"prevPolicyNo":"","prevPolicyExp":"","prevPolicyNcb":"","prevPolicyInsurerCode":"","prevPolicyInsurerName":"","isPrevPolicyClaim":"","prevPolicyType":""}},"VehicleDetails":{"engineNo":"","chassisNo":"","registrationNo":"MH-01-FS-1878","yearOfMfg":2018,"registrationDate":"09/08/2018","makeCode":"FRD","modelCode":"MD000096","makeName":"FORD","modelName":"ECOSPORT","subModelName":"1.5D TITANIUM","subModelCode":"SM00000593","engineCC":"1498","fuelType":"DIESEL","rtoCode":"MH01","rtoName":"MUMBAI","actualIdv":0,"vehicleAge":0.01,"seatingCapacity":"5","cubicCapacity":"1498","zone":"ZONE A","currentNCB":"","isInBuilt":"false","isCarOwnerChanged":"","rtoNo":"MH01","rtoRegistration":"MUMBAI","showRoomPrice":0,"carrierType":"","noOfTraillers":"","trailerIdvDto":[]},"CoverDetails":[],"InsurerDetails":[{"insurerCode":"128","insurerName":"","idv":0,"minIdv":0,"maxIdv":0,"originalIdv":0,"planName":"Silver"}]};
+    this.PrefferedInsurerRequest = JSON.parse(localStorage.getItem("prefferedInsurerList"));
+    console.log("request" + JSON.stringify(quoteRequest));
+    this.filterPremium(quoteRequest, this.PrefferedInsurerRequest, (data) => {
+      return callback(data);
+    });
+
+  }
+
+
+
+
+  getCoverSelection(coverObject?, index?, callback?) {
+    console.log(coverObject, index);
+
+    if (coverObject.coverType == 'ADDITIONAL') {
+      if (coverObject.selected) {
+        this.additionalcoverlist.push(coverObject);
+      }
+      else {
+        this.additionalcoverlist.splice(index, 1);
+      }
+    }
+    else if (coverObject.coverType == 'ADDON') {
+      if (coverObject.selected) {
+        this.addoncoverlist.push(coverObject);
+      }
+      else {
+        this.addoncoverlist.splice(index, 1);
+      }
+    }
+    else if (coverObject.coverType == 'DISCOUNT') {
+      if (coverObject.selected) {
+        this.discountcoverlist.push(coverObject);
+      }
+      else {
+        this.discountcoverlist.splice(index, 1);
+      }
+    }
+    return callback(this.additionalcoverlist, this.addoncoverlist, this.discountcoverlist);
+  }
+
+
+  getAllSelectedCovers(callback) {
+    return callback(this.additionalcoverlist, this.addoncoverlist, this.discountcoverlist);
+  }
+
+
+  checkCoverSelectedOrNot(callback?) {
+    let isAddonSelected;
+    let isAddtionalSelected;
+    let isDiscountSelected;
+    if (this.additionalcoverlist.length > 0) {
+      isAddtionalSelected = true;
+    }
+    else {
+      isAddtionalSelected = false;
+    }
+    if (this.addoncoverlist.length > 0) {
+      isAddonSelected = true;
+    }
+    else {
+      isAddonSelected = false;
+    }
+    if (this.discountcoverlist.length > 0) {
+      isDiscountSelected = true;
+    }
+    else {
+      isDiscountSelected = false;
+    }
+    return callback(isAddtionalSelected, isAddonSelected, isDiscountSelected);
+  }
+
+
+  /**
+      * this method is used to get Bundle list data
+      * **/
+  getBundleDetailsData(callback) {
+    if (this.storage.getItem("bundleLIst") === null) {
+      this.http.post(URLCONSTANT.GET_BUNDLE_LIST_URL, '').subscribe((response) => {
+        this.storage.setItem("bundleLIst", response);
+        return callback(response);
+      });
+    }
+    else {
+      return callback(this.storage.getItem("bundleLIst"));
+    }
+  }
+
+  getBundleDetailsList(request, preferredInsurer, productCode, checkDefault, callback?) {
+    request.InsurerDetails = [];
+    let filtereredBundle: any = {};
+    const insurerDetailsObj = { "insurerCode": preferredInsurer.insurerCode, "insurerName": "", "idv": 0, "minIdv": 0, "maxIdv": 0, "originalIdv": 0, "planName": "" };
+    this.getBundleDetailsData((bundleResponse: any) => {
+      if (insurerDetailsObj.insurerCode == '122' || insurerDetailsObj.insurerCode == '128') {
+        if (bundleResponse[insurerDetailsObj.insurerCode]['PCC']) {
+          let bundleInsurerList = bundleResponse[insurerDetailsObj.insurerCode]['PCC'];
+          for (let i = 0; i < bundleInsurerList.length; i++) {
+            let bundleInsurerObject = bundleInsurerList[i];
+            if (request.CoverDetails.length == 0) {
+              if (bundleInsurerObject.isDefault == 'Y') {
+                insurerDetailsObj.planName = bundleInsurerObject.planName;
+                request.InsurerDetails.push(insurerDetailsObj);
+                return callback(request);
+              }
+            }
+            else {
+              let filterBundledCoverList = this.getBundleCoverDetailsCodes(request.CoverDetails, bundleInsurerList);
+              filtereredBundle = this.getMinCountBundleObject(filterBundledCoverList);
+              insurerDetailsObj.planName = filtereredBundle.planName;
+              request.InsurerDetails.push(insurerDetailsObj);
+              return callback(request);
+            }
+          }
+        }
+      }
+      else {
+        request.InsurerDetails.push(insurerDetailsObj);
+        return callback(request);
+      }
+    });
+  }
+
+
+  /*
+ *  
+ * this method is used to get Minimum CoverCount object from filter Bundle list
+ */
+  getMinCountBundleObject(filterBundledCoverList) {
+    let minCoverCount = 1000;
+    let filteredBundleObject = {};
+    filterBundledCoverList.map((value, index) => {
+      if (value.totalCovers < minCoverCount) {
+        minCoverCount = value.totalCovers;
+        filteredBundleObject = value;
+      }
+    });
+    return filteredBundleObject;
+  }
+
+  /*
+   *  
+   * this method is used to filter cover object by user selected covers
+   */
+  getBundleCoverDetailsCodes(selectedCoverDetails, ListOfBundle) {
+    console.log("selected covers" + JSON.stringify(selectedCoverDetails));
+    let bundleList = [];
+    for (let i = 0; i < selectedCoverDetails.length; i++) {
+      for (let j = 0; j < ListOfBundle.length; j++) {
+        ListOfBundle[j].coverDetails.map((coverCode) => {
+          if (selectedCoverDetails[i].coverCode == coverCode) {
+            bundleList.push(ListOfBundle[j]);
+            console.log("result" + JSON.stringify(bundleList));
+          }
+        });
+      }
+    }
+    return bundleList;
+  }
+
+
+  /*
+   *  
+   * this method is used to calculate specified single insurer calculation
+   */
+  calculateSingleInsurerCalcForIdvChanges(actualIdv, insurerObject,callback?) {
+    let quoteRequestObject:carQuoteRequest=this.storage.getItem("carQuoteRequest");
+    let prefferedInsurerList = this.storage.getItem("prefferedInsurerList");
+    let prefferedInsurerObject = {};
+     quoteRequestObject.InsurerDetails = [];
+    for (let i = 0; i < prefferedInsurerList.length; i++) {
+      if (insurerObject.insurerCode == prefferedInsurerList[i].insurerCode) {
+        prefferedInsurerObject=prefferedInsurerList[i];
+      }
+    }
+    this.getAllSelectedCovers((addon, additional, discount) => {
+      if (addon.length > 0) {
+        for (let i = 0; i < addon.length; i++) {
+          quoteRequestObject.CoverDetails.push(addon[i]);
+        }
+      }
+      if (additional.length > 0) {
+        for (let i = 0; i < additional.length; i++) {
+          quoteRequestObject.CoverDetails.push(additional[i]);
+        }
+      }
+      if (discount.length > 0) {
+        for (let i = 0; i < discount.length; i++) {
+          quoteRequestObject.CoverDetails.push(discount[i]);
+        }
+      }
+    });
+    this.getBundleDetailsList(quoteRequestObject, prefferedInsurerObject, '', '', (quoteRequestResponse) => {
+      let insurerDetailsList = quoteRequestResponse.InsurerDetails;
+        insurerDetailsList.map((value,index)=>{
+        let InsurerDetailObject = value;
+        InsurerDetailObject.insurerCode = insurerObject.insurerCode;
+        InsurerDetailObject.idv = actualIdv;
+        InsurerDetailObject.minIdv = insurerObject.minIdv;
+        InsurerDetailObject.maxIdv = insurerObject.maxIdv;
+        InsurerDetailObject.originalIdv = insurerObject.originalIdv;
+        InsurerDetailObject.planName=InsurerDetailObject.planName;
+      });
+      this.getSingleInsurerCalcData(quoteRequestObject).then((response) => {
+        return callback(response);
+      });
+    });
+  }
+
+}

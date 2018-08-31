@@ -1,0 +1,244 @@
+/* CAR COLORS START */
+
+.car_colors_section .car_header_bg {
+    background: -webkit-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: -o-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: -ms-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+}
+
+.car_colors_section .title {
+    color: rgb(255, 82, 82) !important;
+}
+
+.car_colors_section .mat-step-header .mat-step-icon {
+    background-color: rgb(255, 82, 82);
+}
+
+.car_colors_section .button_1 {
+    background-color: rgb(255, 82, 82);
+    color: rgb(255, 255, 255);
+    border-radius: 4px !important;
+}
+
+.car_colors_section .button_2 {
+    background-color: #f58aa9 !important;
+    color: rgb(255, 255, 255);
+    border-radius: 4px !important;
+}
+
+.car_colors_section .button_3 {
+    background-color: rgb(64, 50, 105) !important;
+    color: rgb(255, 255, 255);
+    border-radius: 4px !important;
+}
+
+.form_first_main.car_colors_section .mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgb(255, 82, 82) !important;
+}
+
+.car_colors_section .label_title {
+    color: rgb(103, 103, 103) !important;
+}
+
+.car_colors_section .bg_color_1 {
+    background: -webkit-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: -o-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: -ms-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    color: rgb(255, 255, 255);
+}
+
+.car_colors_section .bg_color_2 {
+    background: -webkit-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -o-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -ms-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    color: rgb(255, 255, 255);
+}
+
+.car_colors_section .mat-expansion-indicator::after {
+    color: rgb(69, 9, 181);
+}
+
+.car_colors_section .premium-sort-header-bg {
+    background: -webkit-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: -o-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: -ms-linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+    background: linear-gradient(40deg, #FF5252 0%, #f48fb1 100%) !important;
+}
+
+.car_colors_section .productDetailsSide div p:nth-of-type(1) {
+    color: rgb(103, 59, 154) !important;
+}
+
+.car_colors_section .customer_info .mat-step-header {
+    background: -webkit-linear-gradient(40deg, #FF5252, #f48dae) !important;
+    background: -o-linear-gradient(40deg, #FF5252, #f48dae) !important;
+    background: -ms-linear-gradient(40deg, #FF5252, #f48dae) !important;
+    background: linear-gradient(40deg, #FF5252, #f48dae) !important;
+}
+
+.car_colors_section .productDetailsSide.bg_color_1 {
+    background: -webkit-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -o-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -ms-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    border-color: #6e4595 !important;
+}
+
+.car_colors_section .mat-step-label-selected:after {
+    border-bottom: 12px solid rgb(6, 143, 210);
+}
+
+.car_colors_section .mat-form-field-prefix,
+.car_colors_section .customer_info .mat-form-field-suffix {
+    color: rgb(255, 81, 81);
+}
+
+.car_colors_section .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    color: rgb(246, 131, 156);
+}
+
+.car_colors_section .summary_car_header {
+    background: -webkit-linear-gradient(40deg, #FF5252, #f48dae) !important;
+    background: -o-linear-gradient(40deg, #FF5252, #f48dae) !important;
+    background: -ms-linear-gradient(40deg, #FF5252, #f48dae) !important;
+    background: linear-gradient(40deg, #FF5252, #f48dae) !important;
+}
+
+.car_colors_section .summary_arrow_right {
+    border-left: 20px solid rgb(244, 137, 168) !important;
+}
+
+.car_colors_section .summary_page_accordion .mat-expansion-indicator::after {
+    color: rgb(255, 81, 81) !important;
+}
+
+.car_colors_section .summary_page_accordion .mat-expansion-panel-header:hover .mat-expansion-indicator::after {
+    color: rgb(255, 255, 255) !important;
+}
+.date_icon.mat-datepicker-toggle{
+    color: #ff5151;
+}
+/* CAR COLORS END */
+
+/* TWO WHEELER COLORS START */
+
+.twowheeler_colors_section .twowheeler_header_bg {
+    background: -webkit-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -o-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -ms-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: linear-gradient(40deg, #0288d1, #26c6da) !important;
+}
+
+.twowheeler_colors_section .title {
+    color: rgb(2, 136, 209) !important;
+}
+
+.twowheeler_colors_section .mat-step-header .mat-step-icon {
+    background-color: rgb(2, 136, 209);
+}
+
+.twowheeler_colors_section .button_1 {
+    background-color: rgb(2, 136, 209);
+    color: rgb(255, 255, 255);
+    border-radius: 4px !important;
+}
+
+.twowheeler_colors_section .button_2 {
+    background-color: rgb(38, 198, 218) !important;
+    color: rgb(255, 255, 255);
+    border-radius: 4px !important;
+}
+
+.twowheeler_colors_section .button_3 {
+    background-color: rgb(64, 50, 105) !important;
+    color: rgb(255, 255, 255);
+    border-radius: 4px !important;
+}
+
+.form_first_main.twowheeler_colors_section .mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgb(2, 136, 209) !important;
+}
+
+.twowheeler_colors_section .label_title {
+    color: rgb(103, 103, 103) !important;
+}
+
+.twowheeler_colors_section .bg_color_1 {
+    background: -webkit-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -o-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -ms-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: linear-gradient(40deg, #0288d1, #26c6da) !important;
+    color: #fff;
+}
+
+.twowheeler_colors_section .bg_color_2 {
+    background: -webkit-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -o-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -ms-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    color: #fff;
+}
+
+.twowheeler_colors_section .mat-expansion-indicator::after {
+    color: rgb(69, 9, 181);
+}
+
+.twowheeler_colors_section .premium-sort-header-bg {
+    background: linear-gradient(40deg, #0288d1 0%, #26c6da 100%) !important;
+}
+
+.twowheeler_colors_section .productDetailsSide div p:nth-of-type(1) {
+    color: rgb(103, 59, 154) !important;
+}
+
+.twowheeler_colors_section .customer_info .mat-step-header {
+    background: -webkit-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -o-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -ms-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: linear-gradient(40deg, #0288d1, #26c6da) !important;
+}
+
+.twowheeler_colors_section .productDetailsSide.bg_color_1 {
+    background: -webkit-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -o-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: -ms-linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    background: linear-gradient(40deg, #6e4595, #3f00ba) !important;
+    border-color: #6e4595 !important;
+}
+.twowheeler_colors_section .mat-step-label-selected:after {
+    border-bottom: 12px solid rgb(230, 0, 0);
+}
+
+.twowheeler_colors_section .mat-form-field-prefix,
+.twowheeler_colors_section .customer_info .mat-form-field-suffix {
+    color: rgb(6, 143, 210)!important;
+   
+}
+
+.twowheeler_colors_section .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    color: rgb(38, 198, 218);
+}
+
+.twowheeler_colors_section .summary_car_header {
+    background: -webkit-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -o-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: -ms-linear-gradient(40deg, #0288d1, #26c6da) !important;
+    background: linear-gradient(40deg, #0288d1, #26c6da) !important;
+}
+
+.twowheeler_colors_section .summary_arrow_right {
+    border-left: 20px solid rgb(38, 198, 218) !important;
+}
+
+.twowheeler_colors_section .summary_page_accordion .mat-expansion-indicator::after {
+    color: rgb(2, 136, 209) !important;
+}
+
+.twowheeler_colors_section .summary_page_accordion .mat-expansion-panel-header:hover .mat-expansion-indicator::after {
+    color: rgb(255, 255, 255) !important;
+}
+
+/* TWO WHEELER COLORS END */
